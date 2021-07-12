@@ -1,4 +1,4 @@
-const routes = {
+export const routes = {
   "routes": [
     {
       "title": "Projects",
