@@ -7,22 +7,26 @@ export const routes = {
       "routes": [
         {
           "title": "100k Mentor Challenge",
+          "logo": "/logos/100k.png",
           "path": "/projects/100k"
         },
         {
-          "title": "Mimino",
-          "path": "/projects/mimino"
-        },
-        {
           "title": "BNY Viking",
+          "logo": "/logos/bny.png",
           "path": "/projects/viking"
         },
         {
+          "title": "Mimino",
+          "logo": "/logos/promazo-tiny.png",
+          "path": "/projects/mimino"
+        },
+        {
           "title": "Mr. Bartender",
+          "logo": "/logos/mr-bartender-tiny.png",
           "path": "/projects/mr-bartender"
         },
         {
-          "title": "Other Projects",
+          "title": "More Projects",
           "open": false,
           "routes": [
             {

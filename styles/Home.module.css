@@ -37,7 +37,7 @@
   flex-shrink: 1;
   flex-direction: row;
   align-items: flex-start;
-  padding: 0 30px;
+  padding: 0 20px;
   padding-bottom: 30px;
   width: 100%;
 }
@@ -71,7 +71,9 @@
 .breadcrumb > button {
   transition: color 0.3s ease;
 }
-.breadcrumb > button:hover {
+.breadcrumb > button:hover,
+.breadcrumb > button:active,
+.breadcrumb > button:focus {
   color: #0070f3;
 }
 .breadcrumb > button::after {
@@ -87,7 +89,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   padding: 10px 30px;
   margin-top: 10px;
 }
@@ -214,6 +216,7 @@
   color: #0070f3;
   cursor: pointer;
   border-color: #0070f3;
+  outline: none;
 }
 
 .card h2 {

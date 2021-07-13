@@ -5,23 +5,23 @@
   width: 24vw;
   margin-right: 20px;
   padding-right: 20px;
+  padding-left: 20px;
   overflow-y: scroll;
+  box-sizing: content-box;
 }
 
 .navigationHeader {
-  margin: 1.25rem 0;
+  padding: 1.25rem 0;
+  margin: 0;
   font-size: 1.2rem;
   font-weight: 600;
   color: black;
   position: relative;
-}
-
-.navigationLink a {
-  padding: 8px 0;
-  width: 100%;
+  display: flex;
 }
 .navigationLink {
-  margin: 3px 0;
+  margin: 0;
+  padding: 10px 0;
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -30,8 +30,12 @@
   color: #444444;
   box-sizing: border-box;
   position: relative;
+  transition: color 0.15s ease;
 }
-.navigationLink::before {
+.navigationLink.active {
+  font-weight: 600;
+}
+.navigationLink:not(.navigationDropdownTitle)::before {
   content: '';
   flex-basis: 4px;
   flex-shrink: 0;
@@ -42,29 +46,64 @@
   background: #666666;
   margin-right: 16px;
 }
+.navigationLink.noBullet::before {
+  background: none !important;
+}
+.navigationLink > div {
+  position: absolute !important;
+  left: -6px !important;
+}
+.navigationLink.active > div {
+  left: -15px !important;
+}
 .navigationLink:hover,
-.navigationHeader:hover {
+.navigationLink:focus,
+.navigationHeader:hover,
+.navigationHeader:focus {
   color: #0070f3;
   cursor: pointer;
+  outline: none;
 }
-.navigationLink:hover::before {
+.navigationLink:hover::before,
+.navigationLink:focus::before {
   background: #0070f3;
 }
 .navigationLink:hover::after,
-.navigationHeader:hover::after {
+.navigationLink:active::after,
+.navigationLink:focus::after,
+.navigationHeader:hover::after,
+.navigationHeader:active::after,
+.navigationHeader:focus::after,
+.navigationLink.active::after,
+.navigationHeader.active::after {
   content: '→';
   flex-shrink: 0;
   position: absolute;
-  margin-left: 15px;
   color: #0070f3;
   right: 0;
-  padding-left: 10px;
+  padding-left: 5px;
   background-color: white;
   transition: all 0.3s ease;
+  box-shadow: -5px 0 10px white;
+}
+.navigationDropdownTitle:hover::after,
+.navigationDropdownTitle:active::after,
+.navigationDropdownTitle:focus::after {
+  content: '↕';
+}
+.navigationLink.active:not(:hover):not(:focus:active) {
+  color: black;
+}
+.navigationLink.active:not(:hover):not(:focus:active)::after,
+.navigationHeader.active:not(:hover):not(:focus:active)::after {
+  color: black;
+}
+.navigationLink.active:not(:hover):not(:focus:active)::before {
+  background: black;
 }
 
 .navigationDropdown {
-  margin: 18px 0;
+  margin: 8px 0 4px 0;
 }
 
 .navigationDropdownContents {
@@ -74,25 +113,30 @@
   overflow: hidden;
   padding-left: 19px;
   margin-left: 3px;
+  transition: border-color 0.15s ease;
 }
 .navigationDropdownContents.open {
-  margin-top: 18px;
+  margin-top: 5px;
   height: auto;
 }
-
-.navigationDropdownTitle {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  display: flex;
-  align-items: center;
-  color: #444444;
+.navigationDropdownTitle:hover ~ .navigationDropdownContents,
+.navigationDropdownTitle:active ~ .navigationDropdownContents,
+.navigationDropdownTitle:focus ~ .navigationDropdownContents {
+  border-color: #0070f3;
 }
+
 .navigationDropdownTitle > svg {
   margin-right: 14px;
-  transition: transform 0.15s ease;
+  stroke: #999;
+  transition: transform 0.15s ease, stroke 0.15s ease;
 }
 .navigationDropdownTitle.open > svg {
   margin-left: 1px;
   margin-right: 13px;
   transform: rotate(90deg);
+}
+.navigationLink:hover > svg,
+.navigationLink:active > svg,
+.navigationLink:focus > svg {
+  stroke: #0070f3;
 }
