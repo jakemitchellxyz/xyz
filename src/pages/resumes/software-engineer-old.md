@@ -2,6 +2,8 @@
 
 ## TL;DR
 I have written over 300k lines of code in the last year alone, implementing dozens of features and hundreds of bug fixes.
+
+
 ![Janus](/github/janus.png "Janus")
 ![Mimino](/github/mimino.png "Mimino")
 

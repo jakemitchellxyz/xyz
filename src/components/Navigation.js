@@ -5,10 +5,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-export default function Navigation({ routes }) {
+export default function Navigation({ routes, isOpen }) {
   const router = useRouter()
   const [dropdowns, setDropdowns] = useState({})
-  console.log({ dropdowns })
 
   const buildNestedRoutes = (routes, key) => {
     return (
@@ -81,7 +80,7 @@ export default function Navigation({ routes }) {
   }
 
   return (
-    <nav className={styles.navigation}>
+    <nav className={[ styles.navigation, isOpen ? styles.open : ''].join(' ')}>
       {routes.routes.map((route, i) => {
         if (route.heading) {
           return (

@@ -2,7 +2,7 @@
 .navigation {
   height: 100%;
   min-width: 230px;
-  width: 24vw;
+  width: 18vw;
   margin-right: 20px;
   padding-right: 20px;
   padding-left: 20px;
@@ -139,4 +139,10 @@
 .navigationLink:active > svg,
 .navigationLink:focus > svg {
   stroke: #0070f3;
+}
+
+@media(max-width: 700px) {
+  .navigation:not(.open) {
+    display: none;
+  }
 }

@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa'
-import { HiOutlineMail } from 'react-icons/hi'
+import { HiOutlineMail, HiOutlineMenu } from 'react-icons/hi'
 
 import '../../styles/globals.css'
 import styles from '../../styles/Home.module.css'
+import useWindowDimensions from '../effects/useWindowDimensions'
 
 import Head from 'next/head'
 import Image from 'next/image'
@@ -46,14 +47,15 @@ const getPageFolderFromPath = (path, routes, containingFolder = {}) => {
   return null
 }
 
-export default function xyz({ Component, pageProps }) {
+export default function Xyz({ Component, pageProps }) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter()
+  const { width } = useWindowDimensions()
+  const [ navIsOpen, setNavIsOpen ] = useState(width > 700)
+
   const isHomePage = router.pathname === '/'
   const folder = getPageFolderFromPath(router.pathname, routes)
   const title = getPageTitleFromPath(router.pathname, routes)
-
-  console.log({ pageProps, router, title, folder })
 
   return (
     <React.Fragment>
@@ -129,10 +131,18 @@ export default function xyz({ Component, pageProps }) {
 
         {!isHomePage ? (
           <div className={styles.contentWithNavigation}>
-            <Navigation routes={routes} />
+            <Navigation routes={routes} isOpen={navIsOpen} />
 
             {/* Render the Page itself */}
-            <main className={styles.content}>
+            <main className={[ styles.content, navIsOpen ? styles.open : '' ].join(' ')}>
+              {width <= 700 && (
+                <div
+                  className={styles.socialIcon}
+                  onClick={() => setNavIsOpen(!navIsOpen)}
+                >
+                  <HiOutlineMenu />
+                </div>
+              )}
               <Component {...pageProps} />
             </main>
           </div>
