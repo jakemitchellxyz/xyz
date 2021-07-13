@@ -5,17 +5,17 @@ export default function Home() {
   return (
     <div className={styles.grid}>
       <Link passHref href="/projects">
-        <div className={styles.card}>
+        <a className={[ styles.card, styles.cardLeft].join(' ')} title="Projects">
           <h2>Projects &rarr;</h2>
-          <p>A few highlights of my previous projects</p>
-        </div>
+          <p>Highlights from past software and engineering projects</p>
+        </a>
       </Link>
 
       <Link passHref href="/resumes">
-        <div className={styles.card}>
+        <a className={styles.card} title="Resumes">
           <h2>Resumes &rarr;</h2>
-          <p>Position-specific summaries of my technical toolbox</p>
-        </div>
+          <p>Position-oriented summaries of my technical experience</p>
+        </a>
       </Link>
     </div>
   )
