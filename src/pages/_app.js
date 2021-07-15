@@ -1,54 +1,32 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import { FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa'
-import { HiOutlineMail, HiOutlineMenu } from 'react-icons/hi'
 
+// Styling imports
 import '../../styles/globals.css'
 import styles from '../../styles/Home.module.css'
+
+// Custom Logic
+import routes from '../config/routes'
+import { getPageTitleFromPath, getPageFolderFromPath } from '../helpers'
 import useWindowDimensions from '../effects/useWindowDimensions'
 
+// 3rd-party components
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa'
+import { HiOutlineMail, HiOutlineMenu } from 'react-icons/hi'
 import { Breadcrumb, Breadcrumbs } from 'react-rainbow-components'
 
-// Navigation Component
+// Custom Components
 import Navigation from '../components/Navigation'
-import routes from '../config/routes'
 
 /**
- * Intentionally masking the routes variable
- * Setting it equal to itself sets it in the higher scope
- * so that passing the routes variable is optional and the
- * usage can be the same as in the render method scope
+ * Xyz
+ * ======
+ * The primary app that runs on every page and rehydrates
  */
-const getPageTitleFromPath = (path, routes) => {
-  if (!routes) return null
-  if (routes.routes && routes.routes.length > 0) {
-    const title = routes.routes.map(route => {
-      if (route.path === path) return route.title
-      if (route.routes) return getPageTitleFromPath(path, route)
-    }).filter(route => !!route)
-
-    return title[0] || null
-  }
-  return null
-}
-const getPageFolderFromPath = (path, routes, containingFolder = {}) => {
-  if (!routes) return containingFolder
-  if (routes.routes && routes.routes.length > 0) {
-    const title = routes.routes.map(route => {
-      if (route.path === path) return containingFolder
-      if (route.routes) return getPageFolderFromPath(path, route, route)
-    }).filter(route => !!route)
-
-    return title[0] || null
-  }
-  return null
-}
-
 export default function Xyz({ Component, pageProps }) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const router = useRouter()
   const { width } = useWindowDimensions()
   const [ navIsOpen, setNavIsOpen ] = useState(width > 700)
@@ -70,6 +48,16 @@ export default function Xyz({ Component, pageProps }) {
 
         {/* Header */}
         <div className={isHomePage ? styles.headerHome : styles.header}>
+          {/* Menu Button */}
+          {!isHomePage && width <= 700 && (
+            <div
+              className={[ styles.socialIcon, styles.menuButton].join(' ')}
+              onClick={() => setNavIsOpen(!navIsOpen)}
+            >
+              <HiOutlineMenu />
+            </div>
+          )}
+
           {/* profile pic, name, media tags */}
           <div className={isHomePage ? styles.nameTagHome : styles.nameTag}>
             <Image className={styles.topImage} src="/cartoon-face.png" alt="Cartoon drawing of my face" width={isHomePage ? 300 : 75} height={isHomePage ? 300 : 75} />
@@ -112,7 +100,7 @@ export default function Xyz({ Component, pageProps }) {
             && router.pathname !== '/'
             && (
               <Breadcrumbs>
-                <Breadcrumb label="Home" onClick={() => router.push('/')} className={styles.breadcrumb} />
+                <Breadcrumb label="Jake" onClick={() => router.push('/')} className={styles.breadcrumb} />
                 {
                   router.pathname.split('/').length >= 3
                   && (
@@ -135,14 +123,6 @@ export default function Xyz({ Component, pageProps }) {
 
             {/* Render the Page itself */}
             <main className={[ styles.content, navIsOpen ? styles.open : '' ].join(' ')}>
-              {width <= 700 && (
-                <div
-                  className={styles.socialIcon}
-                  onClick={() => setNavIsOpen(!navIsOpen)}
-                >
-                  <HiOutlineMenu />
-                </div>
-              )}
               <Component {...pageProps} />
             </main>
           </div>
