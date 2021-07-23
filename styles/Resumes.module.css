@@ -5,15 +5,20 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: flex-start;
 }
 .container h1 {
   width: 100%;
-  color: #444;
+  color: black;
   padding-bottom: 10px;
+  margin-top: 0;
   margin-bottom: 20px;
   border-bottom: 1px solid #ddd;
+}
+.container h1:not(:first-of-type) {
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .imageRow {
@@ -32,31 +37,29 @@
   min-width: 260px;
 }
 
+.jobHistory {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
 .jobExperience {
+  max-width: 900px;
   width: 100%;
 }
-.jobExperience > h2 {
+.jobExperience h2 {
   margin-bottom: 0;
+  margin-top: 15px;
 }
-.jobExperience > p {
-  /* padding-left: 10px; */
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+@media print {
+  .jobHistory {
+    padding: 0 30px;
+  }
 }
-.jobExperience > p::before {
-  content: '✔';
-  color: #56e8b7;
-  margin-right: 16px;
-}
-.employmentDetails > div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.employmentDetails h3 {
-  margin-left: 12px;
-  color: #444;
+@media(min-width: 1200px) {
+  .jobExperience {
+    margin-left: 20px;
+  }
 }
 
 .employmentDetails {
@@ -66,18 +69,172 @@
   align-items: center;
   justify-content: space-between;
 }
-
-.skills {
+.employmentDetails > div {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
-  width: 100%;
+  margin-left: 30px;
+}
+.employmentDetails h3 {
+  margin: 8px 0 8px 12px;
+  color: #003066;
+}
+.employmentDetails p {
+  color: #999;
+  margin: 0;
 }
 
-.skillCard {
-  background-color: white;
-  padding: 10px;
-  border-radius: 7px;
-  border: 1px solid #666;
+.employmentAchievement {
+  /* padding-left: 10px; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1em;
+}
+.employmentAchievement::before {
+  content: '✔';
+  color: #0070f3;
+  margin-right: 16px;
+}
+.keyword {
+  color: #003066;
+  font-weight: bold;
+}
+.employmentAchievement > p {
+  margin: 4px 0;
+}
+
+.summary {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 900px;
+  flex-wrap: wrap;
+}
+.summaryHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+}
+
+.summaryText {
+  width: 100%;
+  margin-top: 0;
+}
+.summaryText > p {
+  margin: 8px 50px 8px 0;
+}
+.summaryText > p:first-of-type {
+  margin-top: 0;
+}
+.skills {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.skillsTitle {
+  margin: 0 0 5px 0;
+}
+@media(min-width: 1200px) {
+  .skills, .summaryText {
+    max-width: 400px;
+  }
+  .summary {
+    justify-content: space-between;
+  }
+}
+@media (min-width: 650px) {
+  .skills {
+    width: 50%;
+  } 
+  .summaryText {
+    width: 50%;
+  }
+  .summary {
+    flex-wrap: nowrap;
+  }
+}
+@media print {
+  .skills {
+    width: 40% !important;
+  }
+  .summaryText {
+    width: 60% !important;
+  }
+}
+
+.skills table {
+  width: 100%;
+}
+.skills th {
+  color: black;
+  padding-bottom: 15px !important;
+}
+.skills p, .skills h5 {
+  margin: 0;
+}
+.skills tr > td,
+.skills tr > th {
+  text-align: center;
+  padding-bottom: 4px;
+}
+.skills tr > td:first-of-type,
+.skills tr > th:first-of-type {
+  text-align: left;
+}
+.skills tr > td:last-of-type,
+.skills tr > th:last-of-type {
+  text-align: right;
+}
+.skills tr > td h5 {
+  color: black;
+  font-size: 1rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.skills tr > td h5 > div {
+  margin-right: 8px !important;
+}
+
+.achievements {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.achievement {
+  margin: 0px 5px;
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+.achievementText {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 12px;
+}
+.achievement p {
+  margin: 0;
+  color: #999;
+  font-size: 0.75em;
+}
+.achievement h5 {
+  margin: 0;
+  color: #003066;
+  font-size: 0.9em;
+}
+.achievement a {
+  color: #999;
+  transition: color 0.15s ease;
+}
+.achievement a:hover {
+  color: #0070f3;
 }

@@ -1,103 +1,205 @@
 import Image from 'next/image'
 import styles from '../../../styles/Resumes.module.css'
+import { skills } from '../../config/skills'
 
-import skills from '../../config/skills'
+import Skills from '../../components/Skills'
+import Victory from '../../components/Victory'
+import Keyword from '../../components/Keyword'
 
-export default function SoftwareEngineer () {
+export default function SoftwareEngineer ({ isFullScreen }) {
   return (
-    <div className={styles.container}>
-      <h1>Summary</h1>
-      <p>I have written over 300k lines of code in the last year alone, implementing dozens of features and hundreds of bug fixes.</p>
-      
-      <h2>Toolbox</h2>
-      <div className={styles.skills}>
-        {skills.map((skill, i) => (
-          <div className={styles.skillCard} key={`skill_${i}`}>
-            <Image src={skill.logo} alt={`${skill.name} Logo`} width={25} height={25} />
-            <h5>{skill.name}</h5>
+    <div className={[styles.container, isFullScreen ? styles.fullScreen : ''].join(' ')}>
+      <h1 className={styles.summaryHeader}>
+        Overview
+      </h1>
+      <div className={styles.summary}>
+        <div className={[styles.summaryText, isFullScreen ? styles.fullScreen : ''].join(' ')}>
+          <p>
+            I&apos;ve been building software <Keyword>professionally</Keyword> for <Keyword end=",">6 years</Keyword> each project increasing in complexity and sophistication. I&apos;ve been <Keyword>writing</Keyword> code for <Keyword end=".">11 years</Keyword>
+          </p>
+          <p>
+            In the last year, I&apos;ve written over <Keyword>400k lines of code</Keyword> implementing dozens of <Keyword>features</Keyword> and hundreds of <Keyword end=",">bug-fixes</Keyword> primarily in <Keyword>React</Keyword>/<Keyword>Redux</Keyword> repositories.
+          </p>
+          <p>
+            I have <Keyword>trained</Keyword> and <Keyword>mentored more than 20 engineers</Keyword> on how to use this particular <Keyword>technology stack</Keyword> and I not only understand it thoroughly, but I am quite skilled at <Keyword end=".">explaining it simply</Keyword>
+          </p>
+          <h2>Education / Certifications</h2>
+          <div className={styles.achievements}>
+            <div className={styles.achievement}>
+              <Image
+                src="/logos/university-of-rochester.png"
+                alt="University of Rochester Logo"
+                width={60}
+                height={60}
+                />
+              <div className={styles.achievementText}>
+                <h5>University of Rochester</h5>
+                <p>Full-Ride Merit Scholarship</p>
+                <a
+                  title="Learn about the Scholarship"
+                  href="https://educationusa.state.gov/scholarships/alan-and-jane-handler-scholarship"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ marginTop: 5 }}
+                  >
+                  View Scholarship &rarr;
+                </a>
+              </div>
+            </div>
+            <div className={styles.achievement}>
+              <Image
+                src="/certifications/aws-architect-associate.png"
+                alt="AWS Solutions Architect Certification"
+                width={60}
+                height={60}
+                />
+              <div className={styles.achievementText}>
+                <h5>AWS Certified Solutions Architect</h5>
+                <p>Associate-level Certified</p>
+                <a
+                  title="Verify Certificate"
+                  href="https://www.credly.com/badges/e4a502c8-00d3-40cf-b281-a29d48b6f239/public_url"
+                  target="_blank"
+                  rel="noreferrer"
+                  style={{ marginTop: 5 }}
+                  >
+                  View Certificate &rarr;
+                </a>
+              </div>
+            </div>
           </div>
-        ))}
+        </div>
+
+        <Skills skills={skills} isFullScreen={isFullScreen} />
       </div>
+
       <h1>Employment History</h1>
-      <div className={styles.jobExperience}>
-        <h2>Cross-Platform Software Engineer</h2>
-        <div className={styles.employmentDetails}>
-          <div>
-            <Image src="/logos/100k.png" alt="100k Logo" width={25} height={25} />
-            <h3>100k Mentor Challenge by ProMazo, Inc.</h3>
+      <div className={styles.jobHistory}>
+        <div className={styles.jobExperience}>
+          <h2>Senior Software Engineer</h2>
+          <div className={styles.employmentDetails}>
+            <div>
+              <Image src="/logos/100k.png" alt="100k Logo" width={20} height={20} />
+              <h3>100k Mentor Challenge by ProMazo, Inc.</h3>
+            </div>
+            <p>May 2020-<i>Present</i></p>
           </div>
-          <p>May 2020-Present</p>
+
+          <Victory>
+            Contributed over <Keyword>220k additions</Keyword> and <Keyword>140k deletions</Keyword> (lines of code) on a <Keyword>React Native</Keyword> codebase
+          </Victory>
+          <Victory>
+            Implemented an <Keyword>app-wide navigation system</Keyword> on the frontend using <Keyword>React Navigation</Keyword> & <Keyword>Redux</Keyword>
+          </Victory>
+          <Victory>
+            Implemented more than <Keyword>20 pages</Keyword> of a <Keyword>cross-platform app</Keyword> using <Keyword>React Native</Keyword> and <Keyword>Expo</Keyword>
+          </Victory>
+          <Victory>
+            Trained more than <Keyword>15 developers</Keyword> on <Keyword>how to contribute</Keyword> to the codebase efficiently and <Keyword>problem-solve</Keyword> within the technology stack
+          </Victory>
+          <Victory>
+            Managed the <Keyword>deployment process</Keyword> of the native app to the <Keyword>iOS</Keyword>/<Keyword>Android</Keyword> app stores
+          </Victory>
+          <Victory>
+            Implemented <Keyword>living-documentation</Keyword> and quality-assurance tools including <Keyword end=",">Jest</Keyword> <Keyword end=",">Storybook</Keyword> <Keyword end=",">Prettier</Keyword> and <Keyword>Docsify</Keyword>
+          </Victory>
+          <Victory>
+            Managed the <Keyword>deployment process</Keyword> of the production environment of a <Keyword>AWS-based serverless cloud</Keyword> using <Keyword>AWS Amplify</Keyword>
+          </Victory>
         </div>
-        <p>Contributed over 220k additions and 140k deletions (lines of code added/removed) on a React Native codebase</p>
-        <p>Implemented app-wide navigation system on the frontend of the app using React Navigation & Redux</p>
-        <p>Scaffolded and implemented over 25 pages of a cross-platform app using React Native and Expo</p>
-        <p>Expanded a GraphQL schema by 10+ models to support new frontend features</p>
-        <p>Managed the deployment process to the app stores, delivering the native apps to iOS and Android customers</p>
-        <p>Managed the deployment process of the production environment of the serverless cloud using AWS Amplify</p>
-      </div>
-      <div className={styles.jobExperience}>
-        <h2>Solutions Architect & Full-Stack Engineer</h2>
-        <div className={styles.employmentDetails}>
-          <div>
-            <Image src="/logos/promazo-small.png" alt="ProMazo Logo" width={18} height={25} />
-            <h3>Mimino by ProMazo, Inc.</h3>
+        <div className={styles.jobExperience}>
+          <h2>Solutions Architect & Full-Stack Engineer</h2>
+          <div className={styles.employmentDetails}>
+            <div>
+              <Image src="/logos/promazo-small.png" alt="ProMazo Logo" width={13} height={20} />
+              <h3 style={{ marginLeft: 15 }}>Mimino by ProMazo, Inc.</h3>
+            </div>
+            <p>July 2019-<i>Present</i></p>
           </div>
-          <p>July 2019-Present</p>
+          
+          <Victory>
+            Contributed over <Keyword>270k additions</Keyword> and <Keyword>243k deletions</Keyword> (lines of code added/removed) on a <Keyword>React PWA</Keyword> codebase
+          </Victory>
+          <Victory>
+            Modeled a <Keyword>GraphQL schema</Keyword> that has grown to <Keyword>60+ models</Keyword> and <Keyword>150+ connections</Keyword> and is still scaling
+          </Victory>
+          <Victory>
+            Implemented the mentioned <Keyword>GraphQL schema</Keyword> as an API in <Keyword>AWS</Keyword> using <Keyword end=",">AppSync</Keyword> <Keyword end=",">CloudFormation</Keyword> <Keyword end=",">Amplify</Keyword> and <Keyword>DynamoDB</Keyword>
+          </Victory>
+          <Victory>
+            Designed and implemented <Keyword>scalable frontend architecture</Keyword> to support complex data manipulations with <Keyword end=",">React</Keyword> <Keyword end=",">Redux</Keyword> <Keyword end=",">Redux-Thunk</Keyword> and the <Keyword>Amplify SDK</Keyword>
+          </Victory>
+          <Victory>
+            Built an internal <Keyword>CLI tool</Keyword> to automate boilerplate <Keyword>code generation</Keyword> and <Keyword>improve developer efficiency by ~40%</Keyword> when building new features
+          </Victory>
         </div>
-        <p>Contributed over 270k additions and 243k deletions (lines of code added/removed) on a React PWA codebase</p>
-        <p>Trained more than 15 developers on how to contribute to the codebase efficiently and problem-solve within the technology stack</p>
-        <p>Modeled a GraphQL schema that has grown to 60+ models and 150+ connections and is still scaling</p>
-        <p>Implemented the mentioned GraphQL schema as an API in AWS using AppSync, CloudFormation, Amplify, and DynamoDB</p>
-        <p>Designed scalable frontend architecture to support complex data manipulations with React, Redux, Redux-Thunk, and the Amplify SDK</p>
-        <p>Implemented Aspect-Oriented design on a large React codebase to protect development velocity from significant developer churn</p>
-        <p>Implemented living-documentation and quality-assurance tools including Jest, Storybook, Prettier, and Docsify</p>
-        <p>Built an internal CLI tool to automate boilerplate code generation and improve developer efficiency by ~40% when building new features</p>
-      </div>
-      <div className={styles.jobExperience}>
-        <h2>Hybrid Cloud Backend Engineer</h2>
-        <div className={styles.employmentDetails}>
-          <div>
-            <Image src="/logos/bny.png" alt="BNY Logo" width={25} height={25} />
-            <h3>Viking by The Bank of New York Mellon</h3>
+        <div className={styles.jobExperience}>
+          <h2>Cloud Backend Engineer</h2>
+          <div className={styles.employmentDetails}>
+            <div>
+              <Image src="/logos/bny.png" alt="BNY Logo" width={20} height={20} />
+              <h3>Viking by The Bank of New York Mellon Corp.</h3>
+            </div>
+            <p>Sept. 2018-Dec. 2019</p>
           </div>
-          <p>Sept. 2018-Dec. 2019</p>
+
+          <Victory>
+            Designed <Keyword>SQL database</Keyword> with <Keyword>8 tables</Keyword> and implemented with <Keyword>AWS RDS</Keyword>
+          </Victory>
+          <Victory>
+            Created a <Keyword>REST API</Keyword> using <Keyword>API Gateway</Keyword> and connected to <Keyword>RDS</Keyword> via <Keyword>Lambda</Keyword>
+          </Victory>
+          <Victory>
+            Used <Keyword>AWS Cognito</Keyword> to implement a <Keyword>federated authentication system</Keyword>that conforms to the multi-billion-dollar-bank&apos;s <Keyword>security standards</Keyword>
+          </Victory>
+          <Victory>
+            Built a <Keyword>big-data processing</Keyword> system using <Keyword end=",">AWS Lambda</Keyword> <Keyword end=",">Kinesis</Keyword> <Keyword end=",">CloudWatch</Keyword> <Keyword end=",">S3</Keyword> and <Keyword>Step Functions</Keyword> to ingest financial data
+          </Victory>
         </div>
-        <p>Designed SQL database with 8 tables and implemented with AWS RDS</p>
-        <p>Created a REST API using API Gateway and connected to RDS via Lambda</p>
-        <p>Used AWS Cognito to implement an authentication system that conforms to the bank&apos;s security standards</p>
-        <p>Built a big-data processing system using AWS Lambda, Kinesis, CloudWatch, S3, and Step Functions to ingest financial data</p>
-      </div>
-      <div className={styles.jobExperience}>
-        <h2>Software Architect Intern</h2>
-        <div className={styles.employmentDetails}>
-          <div>
-            <Image src="/logos/looker.png" alt="Looker Logo" width={25} height={25} />
-            <h3>Looker Data Sciences, Inc.</h3>
+        <div className={styles.jobExperience}>
+          <h2>Software Architect Intern</h2>
+          <div className={styles.employmentDetails}>
+            <div>
+              <Image src="/logos/looker.png" alt="Looker Logo" width={20} height={20} />
+              <h3>Looker Data Sciences, Inc.</h3>
+            </div>
+            <p>June 2019-Aug. 2019</p>
           </div>
-          <p>June 2019-Aug. 2019</p>
+
+          <Victory>
+            Used <Keyword>Node.js</Keyword> with <Keyword>TypeScript</Keyword> to build a developer <Keyword>CLI tool</Keyword> that shows the differences in <Keyword>Webpack bundles</Keyword> to track frontend <Keyword>file size changes</Keyword> in a PR
+          </Victory>
+          <Victory>
+            Integrated developer <Keyword>CLI tool</Keyword> into the existing <Keyword>CI/CD</Keyword> stack by working with <Keyword end=",">GitHub</Keyword> <Keyword end=",">Jenkins</Keyword> and <Keyword>AWS S3</Keyword>
+          </Victory>
+          <Victory>
+            Developed dozens of <Keyword>integration tests</Keyword> using <Keyword>Puppeteer</Keyword> and an in-house tool built on top of <Keyword>Cucumber</Keyword>
+          </Victory>
         </div>
-        <p>Used Node.js with TypeScript to build a developer CLI tool that shows the differences in Webpack bundles to track frontend file size changes in a PR</p>
-        <p>Integrated developer CLI tool into the existing CI/CD stack by working with GitHub, Jenkins, and AWS S3</p>
-        <p>Developed dozens of integration tests using Puppeteer and an in-house tool built on top of Cucumber</p>
-      </div>
-      <div className={styles.jobExperience}>
-        <h2>Software Engineer Intern</h2>
-        <div className={styles.employmentDetails}>
-          <div>
-            <Image src="/logos/looker.png" alt="Looker Logo" width={25} height={25} />
-            <h3>Looker Data Sciences, Inc.</h3>
+        <div className={styles.jobExperience}>
+          <h2>Software Engineer Intern</h2>
+          <div className={styles.employmentDetails}>
+            <div>
+              <Image src="/logos/looker.png" alt="Looker Logo" width={20} height={20} />
+              <h3>Looker Data Sciences, Inc.</h3>
+            </div>
+            <p>June 2018-Aug. 2018</p>
           </div>
-          <p>June 2018-Aug. 2018</p>
+
+          <Victory>
+            Used <Keyword>Javascript</Keyword> and <Keyword>Node.js</Keyword> to build a <Keyword>Chrome Extension</Keyword> to authenticate <Keyword>security hashes</Keyword> and compute <Keyword>versioning hashes</Keyword> of tutorial documents
+          </Victory>
+          <Victory>
+            Integrated developer <Keyword>CLI tool</Keyword> into the existing <Keyword>CI/CD</Keyword> stack by working with <Keyword end=",">GitHub</Keyword> <Keyword end=",">Jenkins</Keyword> and <Keyword>AWS S3</Keyword>
+          </Victory>
+          <Victory>
+            Developed dozens of <Keyword>integration tests</Keyword> using <Keyword>Puppeteer</Keyword> and an in-house tool built on top of <Keyword>Cucumber</Keyword>
+          </Victory>
+          <Victory>
+            Configured and deployed <Keyword>Node.js</Keyword> <Keyword>REST API</Keyword> to handle requests on <Keyword>Heroku</Keyword>
+          </Victory>
         </div>
-        <p>Used ES6 and Node.js to build a Chrome Extension to authenticate security hashes and compute versioning hashes of tutorial documents</p>
-        <p>Integrated developer CLI tool into the existing CI/CD stack by working with GitHub, Jenkins, and AWS S3</p>
-        <p>Developed dozens of integration tests using Puppeteer and an in-house tool built on top of Cucumber</p>
-        <p>Configured and deployed Node.js REST API to handle requests on Heroku</p>
       </div>
-      {/* <div className={styles.imageRow}>
-        <Image src="/github/janus.png" alt="Janus Commit History" layout="fill" objectFit="contain" />
-        <Image src="/github/mimino.png" alt="Mimino Commit History" layout="fill" objectFit="contain" />
-      </div> */}
     </div>
   )
 }
