@@ -179,6 +179,7 @@
 }
 .nameTagText h1 {
  font-size: 2.1em;
+ font-weight: 200;
 }
 .nameTagResumeTitle {
   margin: 0;
@@ -195,6 +196,9 @@
   margin: 0;
   font-size: 1.8rem;
   font-weight: 200;
+}
+.title.print {
+  font-size: 3rem;
 }
 
 .toolbar {
@@ -264,7 +268,7 @@
 }
 .socialIcons.print {
   flex-wrap: wrap;
-  padding-top: 20px;
+  padding-top: 30px;
   width: 300px;
   justify-content: flex-start;
   flex-direction: column;

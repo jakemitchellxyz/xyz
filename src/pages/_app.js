@@ -60,7 +60,13 @@ export default function Xyz({ Component, pageProps }) {
 
             {/* profile pic, name, media tags */}
             <div className={isHomePage ? styles.nameTagHome : styles.nameTag}>
-              <Image className={styles.topImage} src="/cartoon-face.png" alt="Cartoon drawing of my face" width={isHomePage ? 300 : 75} height={isHomePage ? 300 : 75} />
+              <Image
+                className={styles.topImage}
+                src="/cartoon-face.png"
+                alt="Cartoon drawing of my face"
+                width={isHomePage ? 200 : 75}
+                height={isHomePage ? 200 : 75}
+              />
               <h1 className={isHomePage ? styles.titleHome : styles.title}>
                 Jake Mitchell
               </h1>
@@ -106,13 +112,13 @@ export default function Xyz({ Component, pageProps }) {
                       router.pathname.split('/').length >= 3
                       && (
                         <Breadcrumb
-                        label={folder.title}
-                        onClick={()=> router.push(folder.path)}
-                        className={styles.breadcrumb}
+                          label={folder?.title}
+                          onClick={()=> router.push(folder?.path)}
+                          className={styles.breadcrumb}
                         />
                       )
                     }
-                    <Breadcrumb label={getPageTitleFromPath(router.pathname, routes)} />
+                    <Breadcrumb label={title} />
                   </Breadcrumbs>
 
                   {
@@ -142,19 +148,32 @@ export default function Xyz({ Component, pageProps }) {
                 <div className={styles.headerForPrint}>
                   {/* profile pic, name, media tags */}
                   <div className={styles.nameTagForPrint}>
-                    <Image className={styles.topImage} src="/cartoon-face.png" alt="Cartoon drawing of my face" width={75} height={75} />
+                    <Image
+                      className={styles.topImage}
+                      src="/cartoon-face.png"
+                      alt="Cartoon drawing of my face"
+                      width={75}
+                      height={75}
+                    />
                     
                     <div className={styles.nameTagText}>
-                      <h1 className={styles.title}>
+                      <h1 className={[styles.title, styles.print].join(' ')}>
                         Jake Mitchell
                       </h1>
                       <p className={styles.nameTagResumeTitle}>
-                        as {getPageTitleFromPath(router.pathname, routes)}
+                        for {getPageTitleFromPath(router.pathname, routes)}
+                        <span
+                          style={{
+                            color: '#bbb',
+                            marginLeft: 10
+                          }}
+                        >{`updated ${new Date(Date.now()).toLocaleString().split(',')[0]} `}</span>
                       </p>
                     </div>
       
                     <a
                       className={styles.ctaButton}
+                      style={{ marginLeft: 20 }}
                       onClick={() => setIsDetailViewOpen(false)}
                     >
                       &larr; Exit PDF View

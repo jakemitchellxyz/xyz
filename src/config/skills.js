@@ -76,6 +76,13 @@ export const skills = [
     logo: '/logos/amplify.png',
   },
   {
+    name: 'Express.js',
+    years: 4,
+    level: levels.advanced,
+    type: types.backend,
+    logo: '/logos/node-js.png',
+  },
+  {
     name: 'Git',
     years: 7,
     level: levels.advanced,

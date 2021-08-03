@@ -8,6 +8,9 @@
   align-items: center;
   justify-content: flex-start;
 }
+.container.fullScreen {
+  margin-top: -10px;
+}
 .container h1 {
   width: 100%;
   color: black;
@@ -129,6 +132,11 @@
 .summaryText > p:first-of-type {
   margin-top: 0;
 }
+.summaryText > h2 {
+  margin-top: 25px;
+  margin-bottom: 8px;
+}
+
 .skills {
   width: 100%;
   margin-bottom: 15px;
@@ -169,6 +177,7 @@
 }
 .skills th {
   color: black;
+  font-size: 1.5em;
   padding-bottom: 15px !important;
 }
 .skills p, .skills h5 {
@@ -188,7 +197,7 @@
   text-align: right;
 }
 .skills tr > td h5 {
-  color: black;
+  color: #003066;
   font-size: 1rem;
   display: flex;
   flex-direction: row;
@@ -212,6 +221,13 @@
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+}
+.achievements.fullScreen {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.achievement.fullScreen {
+  width: 47%;
 }
 .achievementText {
   display: flex;
