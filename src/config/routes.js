@@ -21,10 +21,10 @@ export const routes = {
           "title": "Cloud Engineer",
           "path": "/resumes/cloud-engineer"
         },
-        {
-          "title": "Frontend Developer",
-          "path": "/resumes/frontend-developer"
-        },
+        // {
+        //   "title": "Frontend Developer",
+        //   "path": "/resumes/frontend-developer"
+        // },
       ]
     },
     {
