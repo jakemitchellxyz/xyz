@@ -23,6 +23,7 @@
     "trim": "^1.0.1"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^4.1.0",
     "@next/bundle-analyzer": "^12.0.7",
     "cross-env": "^7.0.3",
     "eslint": "7.30.0",
