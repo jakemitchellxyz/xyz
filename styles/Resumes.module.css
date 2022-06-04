@@ -40,53 +40,6 @@
   min-width: 260px;
 }
 
-.jobHistory {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-.jobExperience {
-  max-width: 900px;
-  width: 100%;
-}
-.jobExperience h2 {
-  margin-bottom: 0;
-  margin-top: 15px;
-}
-@media print {
-  .jobHistory {
-    padding: 0 30px;
-  }
-}
-@media(min-width: 1200px) {
-  .jobExperience {
-    margin-left: 20px;
-  }
-}
-
-.employmentDetails {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-}
-.employmentDetails > div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 30px;
-}
-.employmentDetails h3 {
-  margin: 8px 0 8px 12px;
-  color: #003066;
-}
-.employmentDetails p {
-  color: #999;
-  margin: 0;
-}
-
 .employmentAchievement {
   /* padding-left: 10px; */
   display: flex;

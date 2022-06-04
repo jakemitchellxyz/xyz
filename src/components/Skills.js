@@ -19,22 +19,29 @@ export const Skills = ({ skills, isFullScreen }) => {
               <p>Level</p>
             </th>
           </tr>
-          {skills.map((skill, i) => (
-            <tr className={styles.skillCard} key={`skill_${i}`}>
-              <td>
-                <h5>
-                  {!!skill.logo && <Image src={skill.logo} alt={`${skill.name} logo`} width={16} height={16} />}
-                  {skill.name}
-                </h5>
-              </td>
-              <td>
-                <p style={{ color: skillAgeColors[skill.years - 1] }}>{`${skill.years || 1} year${skill.years > 1 ? 's' : ''}`}</p>
-              </td>
-              <td>
-                <p style={{ color: skillLevelColors[skill.level] }}>{skill.level}</p>
-              </td>
-            </tr>
-          ))}
+          {skills.map((skill, i) => {
+            const skillDuration = !!skill.yearEnded ? skill.yearEnded - skill.yearStarted : (new Date).getFullYear() - skill.yearStarted
+            const skillColorIndex = Math.min(skillDuration || 1, skillAgeColors.length) - 1
+
+            return (
+              <tr className={styles.skillCard} key={`skill_${i}`}>
+                <td>
+                  <h5>
+                    {!!skill.logo && <Image src={skill.logo} alt={`${skill.name} logo`} width={16} height={16} />}
+                    {skill.name}
+                  </h5>
+                </td>
+                <td>
+                  <p style={{ color: skillAgeColors[skillColorIndex] }}>
+                    {`${skillDuration || 1} year${skillDuration > 1 ? 's' : ''}`}
+                  </p>
+                </td>
+                <td>
+                  <p style={{ color: skillLevelColors[skill.level] }}>{skill.level}</p>
+                </td>
+              </tr>
+            )
+          })}
         </tbody>
       </table>
     </div>

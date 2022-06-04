@@ -20,6 +20,7 @@ import { GeistProvider, Breadcrumbs } from '@geist-ui/react'
 
 // Custom Components
 import Navigation from '../components/Navigation'
+import Dashboard from '../dashboard/Dashboard'
 
 /**
  * Xyz
@@ -33,9 +34,11 @@ export default function Xyz({ Component, pageProps }) {
   const [ isDetailViewOpen, setIsDetailViewOpen ] = useState(false)
 
   const isHomePage = router.pathname === '/'
+  const isDashboardPage = router.pathname === '/dashboard'
   const folder = getPageFolderFromPath(router.pathname, routes)
   const title = getPageTitleFromPath(router.pathname, routes)
 
+  if (!isDashboardPage) {
   return (
     <GeistProvider>
       <React.Fragment>
@@ -247,6 +250,15 @@ export default function Xyz({ Component, pageProps }) {
           )}
         </div>
       </React.Fragment>
+    </GeistProvider>
+  )
+  }
+  // Dashboard Page
+  return (
+    <GeistProvider>
+      <div className={styles.container}>
+        <Dashboard />
+      </div>
     </GeistProvider>
   )
 }

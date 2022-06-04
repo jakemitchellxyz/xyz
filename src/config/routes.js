@@ -18,13 +18,29 @@ export const routes = {
           "path": "/resumes/full-stack-engineer"
         },
         {
-          "title": "Cloud Engineer",
-          "path": "/resumes/cloud-engineer"
+          "title": "Backend Engineer",
+          "path": "/resumes/backend-engineer"
+        },
+        {
+          "title": "Frontend Developer",
+          "path": "/resumes/frontend-developer"
         },
         // {
-        //   "title": "Frontend Developer",
-        //   "path": "/resumes/frontend-developer"
+        //   "title": "Mobile App Developer",
+        //   "path": "/resumes/mobile-developer"
         // },
+        {
+          "title": "Serverless Cloud Engineer",
+          "path": "/resumes/serverless-engineer"
+        },
+        // {
+        //   "title": "Blockchain Systems Engineer",
+        //   "path": "/resumes/blockchain-engineer"
+        // },
+        {
+          "title": "Security Engineer",
+          "path": "/resumes/security-engineer"
+        },
       ]
     },
     {
