@@ -14,6 +14,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { HiOutlineMail, HiOutlineMenu, HiOutlinePhone } from 'react-icons/hi'
 import { GeistProvider, Breadcrumbs } from '@geist-ui/react'
@@ -240,6 +241,7 @@ export default function Xyz({ Component, pageProps }) {
           )}
         </div>
       </React.Fragment>
+      <SpeedInsights />
     </GeistProvider>
   )
   }
@@ -249,6 +251,7 @@ export default function Xyz({ Component, pageProps }) {
       <div className={styles.container}>
         <Dashboard />
       </div>
+      <SpeedInsights />
     </GeistProvider>
   )
 }
