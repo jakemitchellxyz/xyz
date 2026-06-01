@@ -15,7 +15,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa'
+import { FaLinkedinIn, FaGithub } from 'react-icons/fa'
 import { HiOutlineMail, HiOutlineMenu, HiOutlinePhone } from 'react-icons/hi'
 import { GeistProvider, Breadcrumbs } from '@geist-ui/react'
 
@@ -65,33 +65,33 @@ export default function Xyz({ Component, pageProps }) {
 
               {/* profile pic, name, media tags */}
               <div className={isHomePage ? styles.nameTagHome : styles.nameTag}>
-                <Image
-                  className={styles.topImage}
-                  src="/cartoon-face.png"
-                  alt="Cartoon drawing of my face"
-                  width={isHomePage ? 200 : 75}
-                  height={isHomePage ? 200 : 75}
-                />
-                <h1 className={isHomePage ? styles.titleHome : styles.title}>
-                  Jake Mitchell
-                </h1>
+                <a href="/" className={styles.homePageNameLink}>
+                  <Image
+                    className={styles.topImage}
+                    src="/cartoon-face.png"
+                    alt="Cartoon drawing of my face"
+                    width={isHomePage ? 200 : 75}
+                    height={isHomePage ? 200 : 75}
+                  />
+                  <h1 className={isHomePage ? styles.titleHome : styles.title}>
+                    Jake Mitchell
+                  </h1>
+                </a>
                 <p className={isHomePage ? styles.descriptionHome : styles.description}>
                   @jakemitchellxyz
                 </p>
 
                 <div className={[styles.socialIcons, isHomePage ? '' : styles.small].join(' ')}>
-                  <Link href="https://www.github.com/jakemitchellxyz" className={styles.socialIcon} title="GitHub @jakemitchellxyz">
+                  <Link href="https://www.github.com/jakemitchellxyz" target="_blank" className={styles.socialIcon} title="GitHub @jakemitchellxyz">
                     <FaGithub />
                   </Link>
-                  <Link href="https://www.instagram.com/jakemitchell.xyz" className={styles.socialIcon} title="Instagram @jakemitchell.xyz">
-                    <FaInstagram />
-                  </Link>
-                  <Link href="https://www.linkedin.com/in/jakemitchellxyz/" className={styles.socialIcon} title="LinkedIn @jakemitchellxyz">
+                  <Link href="https://www.linkedin.com/in/jakemitchellxyz/" target="_blank" className={styles.socialIcon} title="LinkedIn @jakemitchellxyz">
                     <FaLinkedinIn />
                   </Link>
                   <a
                     href="mailto:jake@jakemitchell.xyz"
                     title="Email jake@jakemitchell.xyz"
+                    target="_blank"
                     className={styles.socialIcon}
                   >
                     <HiOutlineMail />

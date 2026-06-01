@@ -1,0 +1,49 @@
+import ProjectImageBanner from '../../components/ProjectImageBanner'
+
+<ProjectImageBanner images={[
+  { src: '/mr-bartender/screen.png', alt: 'Mr. Bartender App Screen' },
+  { src: '/mr-bartender/schema.png', alt: 'Mr. Bartender Schema' },
+  { src: '/mr-bartender/schematics.png', alt: 'Mr. Bartender Schematics' },
+]} />
+
+# <img src="/logos/mr-bartender-tiny.png" alt="logo" width="35" /> Mr. Bartender
+
+An IoT smart kegerator built as a college side project with a partner over two semesters. The machine is a custom-built cocktail dispenser (tubes and peristaltic pumps wired to a Raspberry Pi) that party-goers could order drinks from on their phones. Place an order through the PWA, the backend routes it to the device, and the Pi fires the correct pumps to pour your cocktail on demand. We deployed it live in a fraternity house and used it to serve cocktails at parties.
+
+My partner owned the physical hardware: the kegerator chassis, pump wiring, and circuit design. I built the entire software ecosystem: the on-device firmware, the cloud backend, and the consumer-facing web app.
+
+## How It Worked
+
+A party-goer opens the PWA on their phone and selects a cocktail. The order travels through an AWS API Gateway to a Lambda function, which writes it to a queue and pushes it down to the Raspberry Pi over **AWS IoT** (MQTT). The Pi receives the message, maps the cocktail recipe to a set of pump assignments, and fires GPIO signals to the relay board in sequence, dispensing each ingredient for a calibrated duration to hit the target pour volume. A status update flows back up to the cloud and the phone UI confirms the order is being poured.
+
+## Software Architecture
+
+The system spans four independently deployed codebases:
+
+<table>
+  <thead><tr><th>Layer</th><th>Repo</th><th>Tech</th><th>My Responsibility</th></tr></thead>
+  <tbody>
+    <tr><td>Consumer PWA</td><td><a href="https://github.com/MrBartender/pwa">MrBartender/pwa</a></td><td>React, AWS Amplify, GraphQL</td><td>Full frontend: menu UI, order flow, real-time order status</td></tr>
+    <tr><td>Cloud Backend</td><td><a href="https://github.com/MrBartender/backend">MrBartender/backend</a></td><td>AWS Lambda, Serverless Framework, TypeScript</td><td>Order processing, device routing, AWS IoT integration</td></tr>
+    <tr><td>On-Device Firmware</td><td><a href="https://github.com/MrBartender/device">MrBartender/device</a></td><td>Node.js, Vue kiosk UI, AWS IoT SDK</td><td>MQTT subscriber, GPIO pump control, local kiosk display</td></tr>
+    <tr><td>Admin Platform</td><td><a href="https://github.com/MrBartender/Platform">MrBartender/Platform</a></td><td>Vue, Firebase</td><td>Cocktail recipe management, pump assignment, device config</td></tr>
+  </tbody>
+</table>
+
+The [woodhouse](https://github.com/MrBartender/woodhouse) repo is the V1 prototype, a standalone AWS IoT proof-of-concept I built first to validate the cloud-to-device communication model before building out the full product stack.
+
+## On-Device Layer
+
+The Raspberry Pi runs a Node.js server that maintains a persistent MQTT connection to AWS IoT Core. When an order message arrives, the device resolves the cocktail recipe from its local config, maps each ingredient to its assigned pump index, and drives the GPIO pins through a relay board, holding each pin high for a duration proportional to the target volume at that pump's flow rate. A local Vue kiosk UI ([`/kiosk`](https://github.com/MrBartender/device/tree/master/kiosk)) runs in Chromium in fullscreen to display the current queue and pour progress on a screen mounted to the machine.
+
+## Cloud Backend
+
+The backend is fully serverless, deployed via the **Serverless Framework** on AWS. An API Gateway exposes the order intake endpoint; Lambda functions handle order validation and publishing to **AWS IoT Core**, which manages the device shadow and message delivery to the Pi. I chose IoT Core specifically for its managed MQTT broker and device shadow; it gave me reliable, low-latency pub/sub to a device on a home network without having to manage any infrastructure for the connection.
+
+## Consumer PWA
+
+The phone-facing app is a **React** PWA bootstrapped with Create React App, with **AWS Amplify** handling auth and **GraphQL** (AppSync) for the data layer. The UI lets users browse the active cocktail menu, place an order, and watch its status update in real time as the machine pours. Being a PWA meant no app store distribution; party-goers just opened a URL on their phones.
+
+## Tech Stack
+
+`Node.js` · `React` · `Vue` · `TypeScript` · `AWS IoT Core` · `AWS Lambda` · `API Gateway` · `AWS Amplify` · `GraphQL` · `AppSync` · `Serverless Framework` · `Raspberry Pi` · `MQTT` · `IoT` · `GPIO` · `PWA` · `Serverless Architecture` · `Embedded Systems` · `Product Design`

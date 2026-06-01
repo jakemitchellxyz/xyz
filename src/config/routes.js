@@ -64,59 +64,25 @@ export const routes = {
           "path": "/projects/100k"
         },
         {
-          "title": "BNY Viking",
-          "logo": "/logos/bny.png",
-          "path": "/projects/viking"
-        },
-        {
-          "title": "Mimino",
-          "logo": "/logos/promazo-tiny.png",
-          "path": "/projects/mimino"
-        },
-        {
           "title": "Mr. Bartender",
           "logo": "/logos/mr-bartender-tiny.png",
           "path": "/projects/mr-bartender"
         },
         {
           "title": "More Projects",
-          "open": false,
+          "open": true,
           "routes": [
             {
               "title": "Unannounced Video Game",
               "path": "/projects/unannounced-game"
             },
             {
+              "title": "Von Neumann Toy",
+              "path": "/projects/von-neumann-toy"
+            },
+            {
               "title": "Homelab",
               "path": "/projects/homelab"
-            },
-            {
-              "title": "This Website",
-              "path": "/projects/xyz"
-            },
-            {
-              "title": "Janus",
-              "path": "/projects/janus"
-            },
-            {
-              "title": "Demeter",
-              "path": "/projects/demeter"
-            },
-            {
-              "title": "My Old Website",
-              "path": "/projects/jakemitchellxyz"
-            },
-            {
-              "title": "The Open Brain Project",
-              "path": "/projects/the-open-brain-project"
-            },
-            {
-              "title": "Next Movie",
-              "path": "/projects/next-movie"
-            },
-            {
-              "title": "LASSO",
-              "path": "/projects/lasso"
             },
           ]
         },

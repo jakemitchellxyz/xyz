@@ -1,0 +1,62 @@
+import ProjectImageBanner from '../../components/ProjectImageBanner'
+
+<ProjectImageBanner images={[
+  { src: '/bluebook/login.png', alt: 'Bluebook Login' },
+  { src: '/bluebook/homepage.png', alt: 'Bluebook Homepage' },
+  { src: '/bluebook/test-question.png', alt: 'Bluebook Test Question' },
+]} />
+
+# <img src="/logos/college-board.png" alt="logo" width="35" /> Bluebook (Digital SAT)
+
+[Bluebook](https://bluebook.collegeboard.org/) is the College Board's official digital testing platform, the application every student in the world uses to take the SAT, PSAT, and AP Exams. At its peak, the platform serves millions of concurrent test-takers across a tightly constrained four-hour window, making availability, correctness, and performance non-negotiable. I joined as a Senior Software Engineer in August 2021 and spent nearly five years managing critical systems across the full stack: the React PWA client, the AWS serverless backend, cloud infrastructure, observability, security, and the build pipeline.
+
+## My Role
+
+As a **Senior Software Engineer**, I operated across the entire product surface. My work fell into four broad areas: client performance and security, cloud infrastructure and observability, data integrity, and the build pipeline. Bluebook had no tolerance for downtime or bugs: every regression had the potential to disrupt a live national exam, so the bar for every change was unusually high.
+
+## Client Engineering
+
+The Bluebook frontend is a **React PWA** that must run correctly on tens of millions of diverse student devices, from underpowered Chromebooks to modern MacBooks. My client work focused on performance, security, and reliability.
+
+- **CPU optimization**: Refactored the React core lifecycle to reduce CPU usage on low-end devices, ensuring exam timers and UI interactions remained responsive across the device fleet.
+- **Bundle size reduction**: Analyzed the JavaScript build to remove duplicate and unnecessary libraries, cutting the client bundle size by over 40%.
+- **Webpack to Vite migration**: Rebuilt the entire client build pipeline from Webpack to Vite, reducing build time by over 80% and dramatically improving developer iteration speed.
+- **Compression**: Benchmarked compression libraries (`pako`, `uzip`, `fflate`) and implemented the optimal choice for API POST payloads, reducing upload sizes for student response data.
+- **Chunking and backoff**: Implemented chunked API calls with exponential backoff to manage server load and prevent rate-limiting during peak test-day traffic spikes.
+- **UI and feature work**: Delivered dozens of UI updates and new product features directly to the student-facing client.
+- **PWA / native integration**: Contributed to the architectural patterns bridging the cross-platform PWA with the native OS wrappers for each platform.
+
+## Security
+
+Security on Bluebook was both a correctness requirement and a compliance mandate. I owned several security initiatives:
+
+- **Dependency vulnerability remediation**: Removed 31 critical vulnerabilities in client dependencies, including high-severity classes like Prototype Pollution and Template Injection.
+- **JScrambler obfuscation**: Implemented JScrambler to obfuscate the client JavaScript bundle at build time to protect proprietary exam content and logic, while simultaneously minimizing the performance cost of obfuscation and keeping the bundle size in check.
+- **Sourcemap pipeline**: Extended the build pipeline to upload sourcemaps to both JScrambler and Sentry in production, preserving obfuscation in the wild while allowing engineers to debug symbolicated stack traces from production errors.
+
+## Cloud Infrastructure and Observability
+
+The Bluebook backend runs on AWS serverless infrastructure and must handle unpredictable, bursty traffic patterns driven by national exam schedules. I was deeply involved in keeping that infrastructure observable, resilient, and performant.
+
+- **Observability as code**: Designed and implemented infrastructure monitoring using CloudWatch, codifying dashboards, alarms, and metrics for Lambda invocations, DynamoDB throttles, and API Gateway errors so that any on-call engineer could immediately assess system health.
+- **Stress testing**: Budgeted and administered load tests against the cloud infrastructure, analyzed results, and resolved performance bottlenecks before they could surface during live exams.
+- **Cross-region redundancy**: Oversaw the migration of the AWS serverless infrastructure from a single-region deployment to a cross-region active-active architecture, improving both availability and global latency.
+
+## Data Integrity
+
+Bluebook's most critical backend responsibility is ensuring that no student response is ever lost or tampered with. I contributed to the systems that enforced this.
+
+- **Blockchain ledger**: Maintained and extended a cloud service that maintained a centralized blockchain ledger for each student's exam session, enabling the platform to detect any attempt to modify response data after submission.
+- **Massive-scale NoSQL databases**: Maintained three large DynamoDB databases storing billions of student exam responses (collectively billions of records), including schema evolution, capacity planning, and query optimization.
+
+## Testing
+
+- Implemented hundreds of unit and integration tests using **Jest** and **Playwright**, achieving 100% test coverage on multiple subsystems.
+
+## CMS and Productization
+
+- Contributed to the architecture and development effort to productize the Bluebook source code by extracting hardcoded exam content into a **CMS**, decoupling the application from its content and enabling non-engineering teams to manage exam materials independently.
+
+## Tech Stack
+
+`React` · `TypeScript` · `Progressive Web App (PWA)` · `Vite` · `Webpack` · `Jest` · `Playwright` · `AWS Lambda` · `API Gateway` · `DynamoDB` · `CloudWatch` · `JScrambler` · `Sentry` · `Serverless Architecture` · `Cross-Region AWS` · `Observability as Code` · `Security Hardening` · `Blockchain Ledger`

@@ -1,0 +1,41 @@
+# Unannounced Horror Game (UE5.3)
+
+An Unreal Engine 5.3 multiplayer horror game built entirely in Blueprint. Players shrink and grow through eleven discrete size tiers, from microscopic where household insects become predators, to colossal where the monsters that hunted you at small scale are now prey, and must escape or hide from enemies whose threat level scales dynamically with the player's current size. The core technical challenge is a single, data-table-driven system that keeps every gameplay parameter consistent and correctly tuned across all eleven tiers without hardcoding anything per tier.
+
+## The 11-Tier Size System
+
+Rather than treating size as a continuous float, each tier is a named row in a data table that defines a complete gameplay profile. Two data tables drive the entire system.
+
+The first table stores one row per size tier. Each row is a complete movement and collision profile for that size: capsule dimensions, walk and run speeds, jump height, gravity, step-up height, crouched height, braking and friction values, acceleration, physics mass, push force magnitudes, edge-perch thresholds, walkable surface angle limits, interaction reach, camera probe geometry, and a VFX dust scale for footsteps. Every parameter that differs meaningfully between sizes lives in this table; nothing is hardcoded in the Blueprint graph.
+
+The second table stores one row per pawn type, each containing that pawn's native size, size bounds, base walk speed, and five per-tier multiplier maps covering actor scale, walk speed, run speed, turn sensitivity, and spectator camera scale. It also stores the pawn's available skins along with a reference to the animation blueprint for each one. Because different character skins are built on different skeletal rigs with different proportions, each skin can carry its own scale offset that remaps it onto the global size system correctly. A skin built on a tall rig and a skin built on a compact rig will both reach the same effective world-space height at each tier without any manual per-skin tuning in the Blueprint graph. This separation means the same size infrastructure supports different character types and their full wardrobe of skins, each with its own tuning profile, reusing the same lookup logic.
+
+Each tier also has a corresponding set of player start locations tagged to it in the level. The game mode filters spawn points by that tag on player entry, ensuring every player begins the session at a location designed for their starting size with appropriately scaled geometry around them. Adding a new tier or rebalancing movement is entirely an editor operation: adjusting rows in either table propagates automatically to every system that reads from them.
+
+Size changes animate rather than snap. When a tier transition is triggered, the base class interpolates world-space actor scale through a smooth curve, and if the player jumps multiple tiers at once, the system sequences through each intermediate step in order so audio, VFX, and UI can respond in sync. On every completed step, the movement layer looks up the new tier's row and applies the full collision and movement profile: capsule dimensions, crouched height, all movement component parameters, walkable floor limits, edge-perch thresholds, physics mass, push forces, interaction reach, and camera probe geometry.
+
+## Blueprint Architecture
+
+The size system is layered across four Blueprint classes in a strict inheritance chain. The base class owns all size state, reads pawn configuration from the data table, exposes a shared interface for triggering size changes, and handles all network replication. A second layer extends it with the per-tier movement and collision lookup, applying the full profile from the first data table to the character movement component and capsule on every tier transition. A third layer adds base character setup, and the final gameplay pawn adds first-person controls, inventory, health, a parkour movement component, crouch, lean, sprint, melee, interaction traces, skins, and spectator mode on top of the size-aware foundation.
+
+Enemies use a parallel branch of this hierarchy that implements the same shared size interface, so an enemy's size tier is tunable from the same data tables as the player.
+
+## Gameplay Test Suite
+
+A dedicated test level functions as a full regression environment for every system that the size mechanic touches. It contains eight precisely dimensioned walls covering the full spectrum of vaultable and climbable heights, so after any tuning pass on movement parameters each tier can be walked through them to confirm vault and climb thresholds are still correct.
+
+Beyond geometry, the level is also used to test enemy AI behavior across the size spectrum. Because a monster that is roughly player-sized behaves very differently as a threat than one that towers over the player or one the player could step on, the AI perception and chase logic is tested at each tier pairing to verify that detection ranges, pursuit speeds, and aggression scaling all feel correct relative to the size relationship. Attack animations present a particular challenge here: when two characters of vastly different skeletal scales interact, hit traces and animation-driven collision must still land correctly. The test level includes size-mismatched encounter setups to catch cases where an attack montage clips through a small target or completely misses a large one due to the animator having built it at a single reference scale.
+
+Item interactions are tested the same way. Whether a potion, weapon, or interactable object behaves correctly depends on the player's current tier, since interaction reach, pickup collision, and held-item scale all change with size. The test level exposes each item type at fixed world positions so every tier can be verified to interact with them as expected. Eleven physical surface types are registered in the project and verified through the same level, driving footstep audio cues and surface-friction overrides at runtime.
+
+## Network Replication
+
+All size state is replicated with notify callbacks so simulated proxies reapply the correct visual and movement state whenever current scale or spawn size changes. Size change requests are authority-gated through server RPCs so clients request changes but the server validates and broadcasts them.
+
+Spatial audio uses proximity-based attenuation that factors in both the physical distance and the relative size difference between players. A giant player produces audio that carries further and attenuates more slowly, while a microscopic player's sounds are nearly inaudible at normal range even when physically nearby, since a Size1 player and a Size11 player are not truly "close" in any meaningful gameplay sense regardless of their coordinates.
+
+The session layer is a brokered peer-to-peer system built on AWS. A lightweight broker service backed by a queue and a database handles session negotiation, matchmaking state, and lobby management: clients communicate with the broker to find or create sessions, and the broker coordinates the handshake that establishes the direct peer connection. Once connected, gameplay traffic flows peer-to-peer through Epic Online Services net drivers without routing through a dedicated game server, keeping latency low and infrastructure costs flat. This is acceptable because the game is just a fun experience to have with friends, and cheating is not a concern, in fact, cheating would likely make the game more fun in this case.
+
+## Tech Stack
+
+`Unreal Engine 5.3` · `Blueprints` · `Character Movement Component` · `Data Tables` · `Gameplay Tags` · `Timeline Components` · `Behavior Trees` · `Enhanced Input` · `Epic Online Services (EOS)` · `EOS Integration Kit (EIK)` · `Niagara VFX` · `Physical Materials` · `Procedural Content Generation (PCG)`

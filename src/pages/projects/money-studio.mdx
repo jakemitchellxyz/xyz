@@ -1,0 +1,77 @@
+import ProjectImageBanner from '../../components/ProjectImageBanner'
+
+<ProjectImageBanner images={[
+  { src: '/money-studio/if-chart-1-cropped.png', alt: 'Isometric Financial Summary Chart' },
+  { src: '/money-studio/if-chart-4-cropped.png', alt: '3D Net-Worth Surface' },
+  { src: '/money-studio/editor-cropped.png', alt: 'Logic Editor' },
+]} />
+
+# <img src="/logos/money-studio.png" alt="logo" width="35" /> Money Studio
+
+Money Studio is a financial visualization platform I am building from scratch as founder and principal engineer. The product vision is to make personal finance accessible to the financially under-served by letting anyone compose metaphor-driven visualizations of their household money - a plumber sees an excessive expense as a leaky pipe, a gardener sees it as an overhydrated flower. The platform follows an engine + marketplace model: I build the visualization engine and run the marketplace, while financial advisors, CPAs, and credentialed creators publish bespoke visualizations for their clients. The pattern mirrors Unreal Engine's asset marketplace, TSMC's foundry model, and AWS's infrastructure-as-a-service: consolidate an expensive undifferentiated base layer across an industry and let an ecosystem build on top.
+
+The engine is approximately 80% complete and actively deployed at a private instance of [money.studio](https://www.money.studio). Every screenshot is live software, not a mockup.
+
+## The Device System and Marketplace
+
+The engine's extensibility unit is a **Device** - a self-contained, typed, composable component that can represent a budget chart, a formula, a 3D isometric scene, a Sankey diagram, a data-source connector, or any arbitrary visualization metaphor. The marketplace sells Devices grouped into seven categories: Themes, Dashboards, Formulas, Devices, Metaphors, 3D Models, and Charts.
+
+Three production dashboards are built on top of the device system today:
+
+- **Isometric Financial Summary (IF Chart)** - a body-shaped 3D isometric scene aggregating cash, debt, investments, and budgeting over a projected 10-year horizon, with a one-click persona switcher for advisor demos.
+- **3D Net-Worth Surface** - a three-dimensional projection surface renderable across multi-decade horizons with controls for currency, inflation model, time-series step, height scale, and projection horizon.
+- **Budget Sankey** - a monthly cash-flow breakdown with hover-to-inspect detail, demonstrating that radically different visualizations can be composed on the same household data model without forking the underlying record.
+
+A **Data Sources** catalog exposes 26 financial APIs (government, professional, educational - including the St. Louis Fed's FRED API) so creators can pull external data into a Logic Editor flow without writing connector code.
+
+A **Financial Dictionary** ships with 172 terms, IPA pronunciations, plain-language examples, and inline links between related concepts, forming the in-app education layer that converts new users into engine literacy.
+
+## Architecture Overview
+
+The codebase is a TypeScript **Yarn monorepo** organized into workspace families covering the main application, shared libraries (types, UI components, CDK helpers, generated client and server SDKs), AWS CDK infrastructure, web and native client targets, and internal tooling. Every package is type-checked together in a single pass before any build, catching cross-package type regressions at CI time.
+
+The application ships on **five platforms** from one shared codebase: a web app, a browser PWA, iOS (Capacitor), Android (Capacitor), and desktop (Electron and Tauri). A shared build pipeline generates Capacitor sync manifests for the mobile targets and Electron/Tauri packages for the desktop targets. Icons and splash screens are generated from a single source asset and distributed across all platforms via `@capacitor/assets`.
+
+## The Knowledge Graph
+
+The on-device data layer is a **knowledge graph** where every financial entity - transactions, accounts, assets, debts, income streams, investments, crypto holdings - is a node and every relationship is a directed edge. Visualizations and formulas query this graph directly rather than coupling to a specific data schema, which means a single household model can power arbitrarily different dashboards without forking the underlying data record. The graph is augmented by an **Event Ledger** and a **File System** layer for audit history and document storage.
+
+## The Logic Editor
+
+The creator-facing authoring surface is a **node-based visual logic editor** built on `@xyflow/react`. Creators wire together typed nodes representing data sources, formulas, transformations, and visualization outputs to compose new dashboards and metaphors for the marketplace - analogous to Unreal's Blueprint visual scripting system. Each node in the graph is a typed **Device**, drawn from a Device Library. The five engine surfaces (Summary, Data Access, Logic Editor, Designer, Debugger) are live and navigable in the current deployment.
+
+## Backend and Infrastructure
+
+The AWS backend is defined entirely in **TypeScript CDK**. Infrastructure is decomposed into purpose-built CDK stacks covering global resources (WAF WebACL, ACM certificates), regional API delivery (API Gateway, CloudFront, S3, Route 53), user authentication (Cognito), and secrets and encryption key management (Secrets Manager, KMS). Lambda functions are organized by product domain and wrapped in an `ObservableLambda` CDK construct that co-deploys CloudWatch alarms and log groups as first-class infrastructure, so every Lambda ships with observability by default. A custom `RequestAuthorizer` Lambda enforces token validation on the API, and a scheduled EventBridge rule handles automatic token rotation. A type-safe client/server SDK is generated directly from the backend schema so every client call is fully typed end-to-end rather than made against raw endpoints.
+
+## Security
+
+Security was designed in from day one rather than bolted on:
+
+- **SAST** - `bearer scan` runs against every library and application package at CI time, failing on critical, high, and medium severity findings.
+- **SCA** - `fossa analyze` audits all open-source dependencies for license compliance and known vulnerabilities; the FOSSA badge tracks this continuously.
+- **DAST** - `observatory-cli` runs against the locally hosted browser app and landing page endpoints.
+- **IaC security scanning** - `checkov` scans all CDK-synthesized CloudFormation templates for misconfigurations.
+- **OpenSSF Scorecard** - the repository's supply-chain security posture is scored and badged continuously.
+- **WAF** - a global AWS WAF WebACL is applied to all CloudFront distributions.
+- **Content protection** - a custom Lambda authorizer validates app tokens on every API request; a scheduled Lambda rotates the underlying signing keys.
+- **Dependency integrity** - `syncpack` enforces version consistency across all monorepo packages.
+- **Git hooks** - `husky` enforces linting, type-checking, and security gates before every commit.
+
+The cloud backup subscription line is intentionally designed to self-fund the SOC 2 audit cycle, AWS Security Hub coverage, and penetration testing, so the security investment scales with paying-customer count rather than as unfunded G&A overhead.
+
+## On-Device AI
+
+The application ships an on-device **AI assistant** powered by `@mlc-ai/web-llm`, which runs quantized LLM inference directly in the browser via WebGPU/WebAssembly - no data leaves the device for the AI feature. Model weights are downloaded from HuggingFace, converted to the MLC weight format, and served locally. A `prompt-engineering-explorer` workspace provides an internal tooling surface for iterating on system prompts against the on-device model.
+
+## Web3 Integration
+
+The application integrates with five Web3 wallet connectors (`@web3-react/core`, MetaMask, Coinbase Wallet, Binance Smart Chain, Phantom, Gnosis Safe) to allow users to include crypto holdings in their financial graph.
+
+## Cross-Platform Build Pipeline
+
+A single `yarn build` command: type-checks all packages, generates the backend SDK, builds the browser PWA, syncs Capacitor for iOS and Android, packages Electron for macOS and Windows, and generates icons/splash screens for all targets. The CI pipeline (GitHub Actions) separates non-prod managed deployments (on merge to `main`) from prod releases (on tagged release), with CDK synth and deploy stages gated behind type-check and test passes.
+
+## Tech Stack
+
+`TypeScript` · `React 18` · `Redux Toolkit` · `React Router` · `@xyflow/react` · `Capacitor (iOS & Android)` · `Electron` · `Tauri` · `AWS CDK` · `API Gateway` · `Lambda` · `CloudFront` · `S3` · `WAF` · `Cognito` · `Amplify` · `Secrets Manager` · `EventBridge` · `Route 53` · `ACM` · `CloudWatch` · `WebLLM (@mlc-ai/web-llm)` · `Web3-React` · `Yarn Workspaces (Monorepo)` · `GitHub Actions CI/CD` · `Bearer (SAST)` · `FOSSA (SCA)` · `observatory-cli (DAST)` · `Checkov` · `OpenSSF Scorecard` · `dotenvx` · `syncpack` · `Storybook`

@@ -1,0 +1,31 @@
+# Custom Homelab
+
+A production homelab built on Qubes OS, a security-by-compartmentalization operating system that uses a Type-1 hypervisor (Xen) to enforce hardware-level isolation between all workloads. Each service runs in its own disposable or persistent App Qube (lightweight VM), and a suite of shell scripts automates the full lifecycle of provisioning, networking, and service orchestration across those qubes from Dom0. Then, we use Docker Compose inside of an app qube to easily orchestrate complex containerized workflows for various homelab tasks.
+
+## Security Architecture
+
+The foundation of the system is Qubes OS's **compartmentalized trust model**. Dom0, the privileged administrative domain, has no network access by design. All network-facing services are isolated inside dedicated qubes so that a compromise of any single service cannot reach the hypervisor or other workloads.
+
+Inter-qube communication is handled exclusively through **qrexec**, Qubes' RPC mechanism, which enforces cryptographically signed policy rules that must be satisfied before any data crosses a VM boundary. The provisioning scripts use `qvm-run --pass-io` to pipe data between qubes without ever establishing an open network path.
+
+Remote access to all services is tunneled exclusively through **Tailscale** (WireGuard-based mesh VPN), meaning no ports are exposed to the public internet. An Nginx reverse proxy running inside the media qube handles internal routing between services on the mesh.
+
+## Docker Compose Service Stacks
+
+All application logic runs as Docker Compose stacks inside CoreOS qubes. Each composition is a logically isolated stack assigned to its own qube:
+
+<table>
+  <thead><tr><th>Composition</th><th>Services</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>plex</code></td><td>Plex, Overseerr, Requestrr, Nginx, Tailscale</td><td>Media server and user request management</td></tr>
+    <tr><td><code>proxy</code></td><td>qBittorrent, Jackett, Radarr, Sonarr, Lidarr, Tailscale</td><td>Automated media acquisition pipeline</td></tr>
+    <tr><td><code>cuda</code></td><td>CUDA runtime, task scheduler</td><td>GPU-accelerated compute workloads</td></tr>
+    <tr><td><code>jupyter</code></td><td>Unsloth, JupyterLab</td><td>LLM fine-tuning and ML experimentation</td></tr>
+  </tbody>
+</table>
+
+The `proxy` stack forms a fully automated media pipeline: Radarr/Sonarr/Lidarr monitor RSS feeds and dispatch download jobs to qBittorrent via Jackett, then move completed files into the Plex library. Overseerr provides a polished request interface for users on the Tailscale mesh to request new content. The `cuda` and `jupyter` stacks run in a separate qube with GPU passthrough, keeping ML workloads air-gapped from media services.
+
+## Tech Stack
+
+`Qubes OS` · `Fedora CoreOS` · `Xen Hypervisor` · `Docker Compose` · `Bash` · `Qrexec IPC` · `Butane/Ignition` · `Tailscale / WireGuard` · `Nginx` · `Plex` · `Sonarr` · `Radarr` · `Lidarr` · `Overseerr` · `qBittorrent` · `CUDA` · `Unsloth` · `JupyterLab`

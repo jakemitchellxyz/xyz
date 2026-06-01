@@ -14,3 +14,39 @@ a {
 * {
   box-sizing: border-box;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.25rem 0;
+  font-size: 0.9rem;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #f6f6f6;
+}
+
+th {
+  text-align: left;
+  padding: 0.65rem 1rem;
+  font-weight: 600;
+  color: #444;
+  border-bottom: 1px solid #eaeaea;
+}
+
+td {
+  padding: 0.6rem 1rem;
+  color: #555;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background-color: #fafafa;
+}

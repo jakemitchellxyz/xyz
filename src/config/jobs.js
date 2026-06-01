@@ -14,7 +14,7 @@ export const useJobExperiences = () => {
         name: 'Bluebook (Digital SAT)',
         logo: '/logos/college-board.png',
         start: 'Aug. 2021',
-        end: 'Present',
+        end: 'March 2026',
         victories: [
           <>Maintained and added features to a cloud service providing a <Keyword>centralized blockchain ledger</Keyword> for each student to detect cheating</>,
           <>Implemented <Keyword>observability as code</Keyword> and monitored the health of cloud resources including <Keyword>Lambda Invocations</Keyword>, <Keyword>DynamoDB Throttles</Keyword>, and <Keyword>API Gateway Errors</Keyword></>,

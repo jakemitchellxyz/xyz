@@ -25,13 +25,16 @@ export default function Navigation({ routes, isOpen }) {
                 ].join(' ')}
               >
                 {!!route.logo && (
-                  <Image
-                    src={route.logo}
-                    alt={`Logo of ${route.title}`}
-                    height={route.path === router.pathname ? 24 : 18}
-                    width={route.path === router.pathname ? 24 : 18}
-                    className={styles.navigationLinkLogo}
-                  />
+                  <>
+                    <Image
+                      src={route.logo}
+                      alt={`Logo of ${route.title}`}
+                      height={route.path === router.pathname ? 24 : 18}
+                      width={route.path === router.pathname ? 24 : 18}
+                      className={styles.navigationLinkLogo}
+                    />
+                    &nbsp;
+                  </>
                 )}
                 {route.title}
               </Link>

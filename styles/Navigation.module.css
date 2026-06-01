@@ -1,4 +1,3 @@
-
 .navigation {
   height: 100%;
   min-width: 230px;
@@ -6,7 +5,7 @@
   margin-right: 20px;
   padding-right: 20px;
   padding-left: 20px;
-  overflow-y: scroll;
+  overflow-y: auto;
   box-sizing: content-box;
 }
 
@@ -19,6 +18,7 @@
   position: relative;
   display: flex;
 }
+
 .navigationLink {
   margin: 0;
   padding: 5px 0;
@@ -32,9 +32,11 @@
   position: relative;
   transition: color 0.15s ease;
 }
+
 .navigationLink.active {
   font-weight: 600;
 }
+
 .navigationLink:not(.navigationDropdownTitle)::before {
   content: '';
   flex-basis: 4px;
@@ -46,16 +48,20 @@
   background: #666666;
   margin-right: 16px;
 }
+
 .navigationLink.noBullet::before {
   background: none !important;
 }
-.navigationLink > div {
+
+.navigationLink>div {
   position: absolute !important;
   left: -6px !important;
 }
-.navigationLink.active > div {
+
+.navigationLink.active>div {
   left: -15px !important;
 }
+
 .navigationLink:hover,
 .navigationLink:focus,
 .navigationHeader:hover,
@@ -64,10 +70,12 @@
   cursor: pointer;
   outline: none;
 }
+
 .navigationLink:hover::before,
 .navigationLink:focus::before {
   background: #0070f3;
 }
+
 .navigationLink:hover::after,
 .navigationLink:active::after,
 .navigationLink:focus::after,
@@ -86,18 +94,22 @@
   transition: all 0.3s ease;
   box-shadow: -5px 0 10px white;
 }
+
 .navigationDropdownTitle:hover::after,
 .navigationDropdownTitle:active::after,
 .navigationDropdownTitle:focus::after {
   content: '↕';
 }
+
 .navigationLink.active:not(:hover):not(:focus:active) {
   color: black;
 }
+
 .navigationLink.active:not(:hover):not(:focus:active)::after,
 .navigationHeader.active:not(:hover):not(:focus:active)::after {
   color: black;
 }
+
 .navigationLink.active:not(:hover):not(:focus:active)::before {
   background: black;
 }
@@ -115,29 +127,33 @@
   margin-left: 3px;
   transition: border-color 0.15s ease;
 }
+
 .navigationDropdownContents.open {
   margin-top: 5px;
   height: auto;
 }
-.navigationDropdownTitle:hover ~ .navigationDropdownContents,
-.navigationDropdownTitle:active ~ .navigationDropdownContents,
-.navigationDropdownTitle:focus ~ .navigationDropdownContents {
+
+.navigationDropdownTitle:hover~.navigationDropdownContents,
+.navigationDropdownTitle:active~.navigationDropdownContents,
+.navigationDropdownTitle:focus~.navigationDropdownContents {
   border-color: #0070f3;
 }
 
-.navigationDropdownTitle > svg {
+.navigationDropdownTitle>svg {
   margin-right: 14px;
   stroke: #999;
   transition: transform 0.15s ease, stroke 0.15s ease;
 }
-.navigationDropdownTitle.open > svg {
+
+.navigationDropdownTitle.open>svg {
   margin-left: 1px;
   margin-right: 13px;
   transform: rotate(90deg);
 }
-.navigationLink:hover > svg,
-.navigationLink:active > svg,
-.navigationLink:focus > svg {
+
+.navigationLink:hover>svg,
+.navigationLink:active>svg,
+.navigationLink:focus>svg {
   stroke: #0070f3;
 }
 

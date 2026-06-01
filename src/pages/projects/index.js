@@ -3,6 +3,7 @@ import { routes } from '../../config/routes'
 
 const projects = routes.routes.filter((route) => route.title === 'Projects')[0].routes
 console.log(projects)
+
 export default function Portfolio() {
   return (
     <div>

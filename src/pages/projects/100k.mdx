@@ -1,0 +1,59 @@
+import ProjectImageBanner from '../../components/ProjectImageBanner'
+
+<ProjectImageBanner aspectRatio="9/16" images={[
+  { src: '/100k/230x498bb.webp', alt: '100k Mentor Challenge Screen 1' },
+  { src: '/100k/230x498be.webp', alt: '100k Mentor Challenge Screen 2' },
+  { src: '/100k/230x498bg.webp', alt: '100k Mentor Challenge Screen 3' },
+  { src: '/100k/230x498ba.webp', alt: '100k Mentor Challenge Screen 4' },
+  { src: '/100k/230x498bc.webp', alt: '100k Mentor Challenge Screen 5' },
+  { src: '/100k/230x498bd.webp', alt: '100k Mentor Challenge Screen 6' },
+  { src: '/100k/230x498bf.webp', alt: '100k Mentor Challenge Screen 7' },
+]} />
+
+# <img src="/logos/100k.png" alt="logo" width="35" /> 100k Mentor Challenge
+
+A cross-platform mobile application aiming to connect 100,000 underrepresented college students with Fortune 500 mentors, built by a three-engineer team at [ProMazo](https://www.techlearning.com/news/100k-mentor-challenge-underway). I served as the primary solutions architect and lead engineer, owning the end-to-end design of both the React Native frontend and the AWS serverless backend, and overseeing all engineering decisions alongside two other engineers.
+
+The platform launched on iOS and Android in November 2020, was covered by [Tech & Learning](https://www.techlearning.com/news/100k-mentor-challenge-underway), and has been [rated 4.2 stars on the App Store](https://apps.apple.com/us/app/100k-mentor-challenge/id1528816720) with corporate partners including Best Buy, NBC, Pepsi, CDW, Protiviti, and Neiman Marcus.
+
+## Impact
+
+The 100k Mentor Challenge launched during the COVID-19 pandemic, when college students had lost internships and campus recruiting had collapsed. We built the entire MVP of the product within six weeks, and then within a few months of launch, the app crossed 1,000 downloads, with corporate partners across retail, media, and professional services providing mentors. Per the [Tech & Learning](https://www.techlearning.com/news/100k-mentor-challenge-underway) coverage:
+
+> "93% of students and 77% of mentors came from an underrepresented background."
+
+The app continues to operate today, with a current [App Store rating of 4.2 / 5](https://apps.apple.com/us/app/100k-mentor-challenge/id1528816720).
+
+## My Role
+
+As **solutions architect and lead engineer**, I was responsible for:
+
+- Designing the full system architecture from the ground up: cloud infrastructure, API contracts, and data models
+- Building the cross-platform UI in React Native, targeting both iOS and Android from a single codebase
+- Architecting the serverless AWS backend and selecting every service in the stack
+- Overseeing development across the three-engineer team and conducting code review
+
+## Application Architecture
+
+The frontend is a **React Native** application deployed to both the [Apple App Store](https://apps.apple.com/us/app/100k-mentor-challenge/id1528816720) and Google Play Store from a shared codebase. I designed the cross-platform UI to give students and mentors a native-feeling experience on each platform while maintaining a single development surface, which was critical for a small team shipping two apps simultaneously.
+
+The backend runs entirely on **AWS serverless infrastructure**, with an **EC2** instance handling the compute-intensive matching algorithm separately:
+
+<table>
+  <thead><tr><th>Service</th><th>Role</th></tr></thead>
+  <tbody>
+    <tr><td>API Gateway</td><td>REST API layer; routes all mobile client requests to Lambda functions</td></tr>
+    <tr><td>Lambda</td><td>Business logic: profile management, match request handling, session tracking, notifications</td></tr>
+    <tr><td>DynamoDB</td><td>Primary datastore for user profiles, match records, and mentorship session history</td></tr>
+    <tr><td>S3</td><td>Profile media storage (photos, avatars) and static asset hosting</td></tr>
+    <tr><td>EC2</td><td>Matching algorithm: computes ranked mentor/mentee candidate lists from preference vectors</td></tr>
+  </tbody>
+</table>
+
+## Matching Algorithm
+
+The matching engine runs on a dedicated **EC2** instance rather than Lambda because of the memory and compute profile of the ranking workload. Given a student's career goals, industry interests, and background, the algorithm produces a ranked list of 4–5 mentor candidates, and does the same in reverse for mentors. Both sides then rank their options and the system resolves a stable match. Separating this workload from the serverless API layer let us tune the instance independently without impacting API latency.
+
+## Tech Stack
+
+`React Native` · `iOS` · `Android` · `AWS Lambda` · `API Gateway` · `DynamoDB` · `S3` · `EC2` · `Serverless Architecture` · `REST APIs` · `Cross-Platform Mobile` · `Matching Algorithms` · `Solutions Architecture`

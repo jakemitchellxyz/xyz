@@ -1,0 +1,43 @@
+# Von Neumann Toy
+
+A real-time space simulation of autonomous von Neumann probe swarms competing for resources across a physically accurate solar system. Multiple factions of self-replicating drones mine asteroids, establish supply chains, and evolve strategies against each other through generational evolutionary algorithms, all rendered in a custom Vulkan engine.
+
+## Rendering Architecture
+
+The most technically distinctive aspect of this project is the rendering pipeline: **the entire scene (planets, moons, asteroids, drones, gas clouds) is rendered using only 2 screen-space quads**. There is no traditional mesh geometry submitted to the GPU. Instead, every object in the scene is described mathematically as a Signed Distance Field (SDF), and a Vulkan fragment shader performs **cone marching** across those fields to resolve intersections, normals, shadows, and lighting entirely on the GPU.
+
+This fully virtualized geometry approach means:
+- Zero vertex buffer uploads per frame regardless of scene complexity
+- Sub-pixel accurate silhouettes and smooth lighting without tessellation
+- Cheap analytical normals from SDF gradients instead of normal maps
+- Physically Based Rendering (PBR) with essentially no geometry bottleneck
+
+## Simulation
+
+Each drone is modeled as an independent agent with a component-based hardware architecture (CPU, solar panels, propulsion jets, fuel tank, mining drill, smelting furnace, communications laser, radar, and additive manufacturing units). Their decision-making is driven by a layered stack of **state machines, decision trees, and knowledge graphs**, with collective behavior emerging from **swarm intelligence search algorithms** and **convolutional neural networks**. Competing swarms evolve over generations using **evolutionary algorithms**, producing organic supply chains and resource wars without scripted behavior.
+
+The physics layer simulates classical gravity and rigid body dynamics. Drone-to-drone communication uses a **decentralized zero-knowledge-proof consensus protocol** to coordinate without a central authority, mirroring how a real von Neumann swarm would have to operate across light-delay distances.
+
+## Scientific Datasets
+
+The solar system is populated with data from a suite of authoritative scientific sources to achieve realistic conditions:
+
+<table>
+  <thead><tr><th>Dataset</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td>JPL Horizons SPICE</td><td>Planetary and lunar positions</td></tr>
+    <tr><td>Hipparcos 2</td><td>Star catalog for the celestial skybox</td></tr>
+    <tr><td>SuperNOVAS</td><td>Astrometric computations</td></tr>
+    <tr><td>ETOPO 2022</td><td>Earth surface elevation / topology</td></tr>
+    <tr><td>Blue Marble Next Generation</td><td>Earth surface color</td></tr>
+    <tr><td>NOAA-20 VIIRS Black Marble</td><td>City lights (night side of Earth)</td></tr>
+    <tr><td>Terra MODIS 3-6-7</td><td>Earth surface reflectance</td></tr>
+    <tr><td>RSS CCMP v3.1</td><td>10m surface wind patterns</td></tr>
+    <tr><td>WMM 2025</td><td>Earth magnetic field (high resolution)</td></tr>
+    <tr><td>SimpleMaps World Cities</td><td>Earth economic simulation</td></tr>
+  </tbody>
+</table>
+
+## Tech Stack
+
+`C++` · `Vulkan` · `GLSL` · `CMake` · `vcpkg` · `SDF / Cone Marching` · `PBR` · `Rigid Body Physics` · `Swarm Intelligence` · `Evolutionary Algorithms` · `Convolutional Neural Networks` · `Zero-Knowledge-Proof Consensus` · `State Machines / Decision Trees / Knowledge Graphs`
