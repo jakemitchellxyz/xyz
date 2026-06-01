@@ -10,10 +10,8 @@ export default function Resumes() {
         {!!resumes && resumes.map(
           (resume, index) => (
             <li key={index}>
-              <Link passHref href={resume.path}>
-                <a>
-                  <h3>{resume.title} &rarr;</h3>
-                </a>
+              <Link href={resume.path}>
+                <h3>{resume.title} &rarr;</h3>
               </Link>
             </li>
           )

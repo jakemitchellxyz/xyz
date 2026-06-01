@@ -11,14 +11,33 @@ export const useJobExperiences = () => {
       company: 'The College Board',
       technologies: [ types.backend, types.frontend, types.qa, types.operations, types.serverless, types.tooling ],
       projects: [{
-        name: 'Digital SAT',
+        name: 'Bluebook (Digital SAT)',
         logo: '/logos/college-board.png',
         start: 'Aug. 2021',
-        end: 'Present'
+        end: 'Present',
+        victories: [
+          <>Maintained and added features to a cloud service providing a <Keyword>centralized blockchain ledger</Keyword> for each student to detect cheating</>,
+          <>Implemented <Keyword>observability as code</Keyword> and monitored the health of cloud resources including <Keyword>Lambda Invocations</Keyword>, <Keyword>DynamoDB Throttles</Keyword>, and <Keyword>API Gateway Errors</Keyword></>,
+          <>Maintained <Keyword>three massive NoSQL databases</Keyword> of millions of student exam responses, each containing <Keyword>billions of records</Keyword></>,
+          <>Budgeted and administered <Keyword>Stress Tests</Keyword> on cloud infrastructure and <Keyword>resolved performance bottlenecks</Keyword></>,
+          <><Keyword>Removed 31 critical vulnerabilities</Keyword> in client dependencies such as <Keyword>Prototype Pollution</Keyword> and <Keyword>Template Injection</Keyword></>,
+          <>Refactored the <Keyword>React PWA</Keyword> core lifecycle to <Keyword>optimize CPU usage</Keyword> on millions of devices</>,
+          <>Benchmarked compression libraries like <Keyword>pako</Keyword>, <Keyword>uzip</Keyword>, and <Keyword>fflate</Keyword> to choose and <Keyword>implement compression</Keyword> for our API POST payloads</>,
+          <>Rebuilt the client build pipeline from <Keyword>Webpack to Vite</Keyword>, <Keyword>reducing build time by over 80%</Keyword></>,
+          <>Implemented <Keyword>dozens of UI updates</Keyword> to the Bluebook client to deliver new features and improve UX</>,
+          <>Implemented <Keyword>hundreds of Unit and Integration tests</Keyword> using <Keyword>Jest</Keyword> and <Keyword>Playwright</Keyword> to reach <Keyword>100% test coverage</Keyword> on multiple subsystems</>,
+          <>Implemented <Keyword>JScrambler</Keyword> to obfuscate the client Javascript bundle while also <Keyword>minimizing the cost of obfuscation and bundle size</Keyword></>,
+          <>Upgraded the client build pipeline to upload sourcemaps to JScrambler and Sentry in production, preserving obfuscation while allowing developers to debug production</>,
+          <>Oversaw the migration of AWS serverless cloud infrastructure from <Keyword>one region</Keyword> to use <Keyword>cross-region redundancy</Keyword> to improve availability and reduce latency</>,
+          <>Analyzed and optimized the client Javascript build process to remove duplicates and unecessary libraries to <Keyword>reduce client bundle size by over 40%</Keyword></>,
+          <>Implemented <Keyword>chunking</Keyword> and <Keyword>exponential backoff</Keyword> to client API calls to manage server load and avoid rate limiting</>,
+          <>Contributed to the architectural patterns <Keyword>integrating the cross-platform PWA client</Keyword> with the <Keyword>native OS wrappers</Keyword></>,
+          <>Contributed in the architecture and development of <Keyword>productizing the source code</Keyword> by extracting content into a <Keyword>CMS</Keyword></>
+        ]
       }]
     },
     {
-      title: 'Solutions Architect & Senior Full-Stack Engineer',
+      title: 'Senior Full-Stack Engineer',
       company: 'ProMazo, Inc.',
       technologies: [ types.backend, types.frontend, types.qa, types.operations, types.security, types.serverless, types.tooling ],
       projects: [
@@ -36,7 +55,14 @@ export const useJobExperiences = () => {
             <>Managed the <Keyword>CI/CD Pipeline</Keyword> of all deployed environments of an <Keyword>AWS Cloud Infrastructure</Keyword> using <Keyword>AWS Amplify</Keyword></>,
             <>Implemented <Keyword>quality-assurance</Keyword> and <Keyword>living-documentation</Keyword> tools including <Keyword end=",">Jest</Keyword> <Keyword end=",">Storybook</Keyword> <Keyword end=",">Prettier</Keyword> and <Keyword>Docsify</Keyword></>
           ]
-        },
+        }
+      ]
+    },
+    {
+      title: 'Solutions Architect & Senior Full-Stack Engineer',
+      company: 'ProMazo, Inc.',
+      technologies: [ types.backend, types.frontend, types.qa, types.operations, types.security, types.serverless, types.tooling ],
+      projects: [
         {
           name: 'Mimino',
           logo: '/logos/promazo-small.png',

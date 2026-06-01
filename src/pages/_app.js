@@ -44,7 +44,7 @@ export default function Xyz({ Component, pageProps }) {
       <React.Fragment>
         <div className={isHomePage ? styles.containerHome : styles.container}>
           <Head>
-            <title>Jake Mitchell{!isHomePage ? ` - ${title}` : ''}</title>
+            <title>{`Jake Mitchell${!isHomePage ? ` - ${title}` : ''}`}</title>
             <meta name="description" content="Solutions Architect; Software Engineer; Cloud Engineer; Cloud Architect; App Developer; Freelance Artisan" />
             <link rel="icon" href="/favicon.ico" />
           </Head>
@@ -79,20 +79,14 @@ export default function Xyz({ Component, pageProps }) {
                 </p>
 
                 <div className={[styles.socialIcons, isHomePage ? '' : styles.small].join(' ')}>
-                  <Link passHref href="https://www.github.com/jakemitchellxyz">
-                    <a className={styles.socialIcon} title="GitHub @jakemitchellxyz">
-                      <FaGithub />
-                    </a>
+                  <Link href="https://www.github.com/jakemitchellxyz" className={styles.socialIcon} title="GitHub @jakemitchellxyz">
+                    <FaGithub />
                   </Link>
-                  <Link passHref href="https://www.instagram.com/jakemitchell.xyz">
-                    <a className={styles.socialIcon} title="Instagram @jakemitchell.xyz">
-                      <FaInstagram />
-                    </a>
+                  <Link href="https://www.instagram.com/jakemitchell.xyz" className={styles.socialIcon} title="Instagram @jakemitchell.xyz">
+                    <FaInstagram />
                   </Link>
-                  <Link passHref href="https://www.linkedin.com/in/jakemitchellxyz/">
-                    <a className={styles.socialIcon} title="LinkedIn @jakemitchellxyz">
-                      <FaLinkedinIn />
-                    </a>
+                  <Link href="https://www.linkedin.com/in/jakemitchellxyz/" className={styles.socialIcon} title="LinkedIn @jakemitchellxyz">
+                    <FaLinkedinIn />
                   </Link>
                   <a
                     href="mailto:jake@jakemitchell.xyz"
@@ -184,17 +178,13 @@ export default function Xyz({ Component, pageProps }) {
                     </div>
         
                     <div className={[styles.socialIcons, styles.small, styles.print].join(' ')}>
-                      <Link passHref href="https://www.github.com/jakemitchellxyz">
-                        <a className={styles.socialIcon} title="GitHub @jakemitchellxyz">
-                          <FaGithub />
-                          jakemitchellxyz
-                        </a>
+                      <Link href="https://www.github.com/jakemitchellxyz" className={styles.socialIcon} title="GitHub @jakemitchellxyz">
+                        <FaGithub />
+                        jakemitchellxyz
                       </Link>
-                      <Link passHref href="https://www.linkedin.com/in/jakemitchellxyz/">
-                        <a className={styles.socialIcon} title="LinkedIn @jakemitchellxyz">
-                          <FaLinkedinIn />
-                          jakemitchellxyz
-                        </a>
+                      <Link href="https://www.linkedin.com/in/jakemitchellxyz/" className={styles.socialIcon} title="LinkedIn @jakemitchellxyz">
+                        <FaLinkedinIn />
+                        jakemitchellxyz
                       </Link>
                       <a
                         href="tel:9132128996"
@@ -240,7 +230,7 @@ export default function Xyz({ Component, pageProps }) {
 
           {/* Github Link */}
           {!isDetailViewOpen && (
-            <a href="https://github.com/jakemitchellxyz/xyz" className={styles.githubCorner} title="View Source Code on GitHub" aria-label="View source on GitHub">
+            <a href="https://github.com/jakemitchellxyz/xyz" target="_blank" className={styles.githubCorner} title="View Source Code on GitHub" aria-label="View source on GitHub">
               <svg width="80" height="80" viewBox="0 0 250 250" style={{ fill: '#151513', color:'#fff', position: 'absolute', top: 0, border: 0, right: 0 }} aria-hidden="true">
                 <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
                 <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style={{ transformOrigin: '130px 106px'}} className={styles.octoArm}></path>

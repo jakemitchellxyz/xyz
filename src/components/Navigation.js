@@ -15,26 +15,25 @@ export default function Navigation({ routes, isOpen }) {
         {routes.map((route, i) => {
           if (!route.routes) {
             return (
-              <Link pathname href={route.path} key={`navigation_link_${key}_${i}`}>
-                <a
-                  key={`navigation_link_${key}_${i}`}
-                  className={[
-                    styles.navigationLink,
-                    route.logo ? styles.noBullet : '',
-                    route.path === router.pathname ? styles.active : '',
-                  ].join(' ')}
-                >
-                  {!!route.logo && (
-                    <Image
-                      src={route.logo}
-                      alt={`Logo of ${route.title}`}
-                      height={route.path === router.pathname ? 24 : 18}
-                      width={route.path === router.pathname ? 24 : 18}
-                      className={styles.navigationLinkLogo}
-                    />
-                  )}
-                  {route.title}
-                </a>
+              <Link
+                href={route.path}
+                key={`navigation_link_${key}_${i}`}
+                className={[
+                  styles.navigationLink,
+                  route.logo ? styles.noBullet : '',
+                  route.path === router.pathname ? styles.active : '',
+                ].join(' ')}
+              >
+                {!!route.logo && (
+                  <Image
+                    src={route.logo}
+                    alt={`Logo of ${route.title}`}
+                    height={route.path === router.pathname ? 24 : 18}
+                    width={route.path === router.pathname ? 24 : 18}
+                    className={styles.navigationLinkLogo}
+                  />
+                )}
+                {route.title}
               </Link>
             )
           }
@@ -85,15 +84,14 @@ export default function Navigation({ routes, isOpen }) {
         if (route.heading) {
           return (
             <div key={`navigation_section_${i}`}>
-              <Link passHref href={route.path}>
-                <a
-                  className={[
-                    styles.navigationHeader,
-                    route.path === router.pathname ? styles.active : '',
-                  ].join(' ')}
-                >
-                  {route.title}
-                </a>
+              <Link
+                href={route.path}
+                className={[
+                  styles.navigationHeader,
+                  route.path === router.pathname ? styles.active : '',
+                ].join(' ')}
+              >
+                {route.title}
               </Link>
               {!!route.routes && route.routes.length > 0 &&
                 buildNestedRoutes(route.routes, i)

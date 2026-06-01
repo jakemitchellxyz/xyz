@@ -49,6 +49,16 @@ export const routes = {
       "path": "/projects",
       "routes": [
         {
+          "title": "Money Studio",
+          "logo": "/logos/money-studio.png",
+          "path": "/projects/money-studio"
+        },
+        {
+          "title": "Bluebook (Digital SAT)",
+          "logo": "/logos/college-board.png",
+          "path": "/projects/bluebook"
+        },
+        {
           "title": "100k Mentor Challenge",
           "logo": "/logos/100k.png",
           "path": "/projects/100k"
@@ -63,51 +73,51 @@ export const routes = {
           "logo": "/logos/promazo-tiny.png",
           "path": "/projects/mimino"
         },
-        // {
-        //   "title": "Mr. Bartender",
-        //   "logo": "/logos/mr-bartender-tiny.png",
-        //   "path": "/projects/mr-bartender"
-        // },
+        {
+          "title": "Mr. Bartender",
+          "logo": "/logos/mr-bartender-tiny.png",
+          "path": "/projects/mr-bartender"
+        },
         {
           "title": "More Projects",
           "open": false,
           "routes": [
             {
+              "title": "Unannounced Video Game",
+              "path": "/projects/unannounced-game"
+            },
+            {
+              "title": "Homelab",
+              "path": "/projects/homelab"
+            },
+            {
               "title": "This Website",
               "path": "/projects/xyz"
             },
-            // {
-            //   "title": "Janus",
-            //   "path": "/projects/janus"
-            // },
-            // {
-            //   "title": "Demeter",
-            //   "path": "/projects/demeter"
-            // },
-            // {
-            //   "title": "My Old Website",
-            //   "path": "/projects/jakemitchellxyz"
-            // },
-            // {
-            //   "title": "Pendo Suite",
-            //   "path": "/projects/the-open-brain-project"
-            // },
-            // {
-            //   "title": "Webpack Build Summaries",
-            //   "path": "/projects/lasso"
-            // },
-            // {
-            //   "title": "The Open Brain Project",
-            //   "path": "/projects/the-open-brain-project"
-            // },
-            // {
-            //   "title": "Next Movie",
-            //   "path": "/projects/next-movie"
-            // },
-            // {
-            //   "title": "LASSO",
-            //   "path": "/projects/lasso"
-            // },
+            {
+              "title": "Janus",
+              "path": "/projects/janus"
+            },
+            {
+              "title": "Demeter",
+              "path": "/projects/demeter"
+            },
+            {
+              "title": "My Old Website",
+              "path": "/projects/jakemitchellxyz"
+            },
+            {
+              "title": "The Open Brain Project",
+              "path": "/projects/the-open-brain-project"
+            },
+            {
+              "title": "Next Movie",
+              "path": "/projects/next-movie"
+            },
+            {
+              "title": "LASSO",
+              "path": "/projects/lasso"
+            },
           ]
         },
       ],

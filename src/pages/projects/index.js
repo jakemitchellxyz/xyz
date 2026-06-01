@@ -12,10 +12,8 @@ export default function Portfolio() {
           (project, index) => (
             project.path && (
               <li key={index}>
-                <Link passHref href={project.path}>
-                  <a>
-                    <h3>{project.title} &rarr;</h3>
-                  </a>
+                <Link href={project.path}>
+                  <h3>{project.title} &rarr;</h3>
                 </Link>
               </li>
             )

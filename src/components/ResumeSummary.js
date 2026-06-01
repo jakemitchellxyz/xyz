@@ -23,7 +23,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
             />
             <div className={styles.achievementText}>
               <h5>Full-Ride Merit Scholarship</h5>
-              <p>University of Rochester</p>
+              <p>University of Rochester (2016)</p>
               <a
                 title="Learn about the Scholarship"
                 href="https://educationusa.state.gov/scholarships/alan-and-jane-handler-scholarship"
@@ -44,7 +44,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
             />
             <div className={styles.achievementText}>
               <h5>AWS Solutions Architect</h5>
-              <p>Associate-level Certification</p>
+              <p>Associate-level Certification (2020)</p>
               <a
                 title="Verify Certificate"
                 href="https://www.credly.com/badges/e4a502c8-00d3-40cf-b281-a29d48b6f239/public_url"
@@ -65,7 +65,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
             />
             <div className={styles.achievementText}>
               <h5>eMagine Media Festival</h5>
-              <p>1st Place Website Design</p>
+              <p>1st Place Website Design (2015)</p>
               <a
                 title="Learn about eMagine Media Festival"
                 href="https://emaginefestival.com/"
@@ -86,7 +86,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
             />
             <div className={styles.achievementText}>
               <h5>ProMazo Fellow</h5>
-              <p>Top 5% of University Talent</p>
+              <p>Top 5% of University Talent (2018)</p>
               <a
                 title="Learn about ProMazo Fellows"
                 href="https://workforce.promazo.com/talent/"
