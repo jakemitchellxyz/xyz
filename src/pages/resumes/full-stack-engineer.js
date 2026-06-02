@@ -5,7 +5,9 @@ import Resume from '../../components/Resume'
 
 import { types } from '../../config/skills'
 
-import { yearsWritingCode, yearsProfessional } from '../../config/experience' = ({ isFullScreen }) => {
+import { yearsWritingCode, yearsProfessional } from '../../config/experience'
+
+export const FullStackEngineer = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}

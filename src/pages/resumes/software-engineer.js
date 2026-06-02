@@ -3,7 +3,9 @@ import React from 'react'
 import Keyword from '../../components/Keyword'
 import Resume from '../../components/Resume'
 
-import { yearsWritingCode, yearsProfessional } from '../../config/experience' = ({ isFullScreen }) => {
+import { yearsWritingCode, yearsProfessional } from '../../config/experience'
+
+export const SoftwareEngineer = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
