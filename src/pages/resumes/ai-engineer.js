@@ -11,7 +11,7 @@ export const AIEngineer = ({ isFullScreen }) => {
     <Resume
       isFullScreen={isFullScreen}
       experienceFilter={null}
-      skillFilter={[ types.language, types.backend, types.tooling ]}
+      skillFilter={[ types.ai, types.language, types.backend ]}
       projectFilter={[ types.ai ]}
       summaryStatements={[
         <>I build <Keyword>local-first AI systems</Keyword>: multi-model LLM pipelines, <Keyword>RAG architectures</Keyword>, structured state extraction, and on-device inference</>,

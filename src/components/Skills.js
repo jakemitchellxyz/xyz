@@ -43,6 +43,7 @@ export const Skills = ({ skills, isFullScreen }) => {
                 <td>
                   <h5>
                     {!!skill.logo && <Image src={skill.logo} alt={`${skill.name} logo`} width={16} height={16} />}
+                    &nbsp;
                     {skill.name}
                   </h5>
                 </td>

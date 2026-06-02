@@ -56,6 +56,14 @@ export const useSkills = () => {
 
 export const skills = [
   {
+    name: 'AWS Suite',
+    // 2018–present: BNY Mellon → ProMazo → College Board → Money Studio
+    periods: [{ start: 2018 }],
+    level: levels.advanced,
+    type: types.backend,
+    logo: '/logos/aws.png',
+  },
+  {
     name: 'JavaScript',
     // 2012–present: continuous use across all jobs and personal projects
     periods: [{ start: 2012 }],
@@ -64,12 +72,36 @@ export const skills = [
     logo: '/logos/javascript.png',
   },
   {
-    name: 'CSS',
-    // 2014–present: continuous use across all frontend work
-    periods: [{ start: 2014 }],
+    name: 'TypeScript',
+    // 2019–present: Looker CLI tool → College Board → Money Studio monorepo
+    periods: [{ start: 2019 }],
     level: levels.expert,
-    type: types.frontend,
-    logo: '/logos/css.png',
+    type: types.language,
+    logo: null,
+  },
+  {
+    name: 'Python',
+    // 2017–2019: U of Rochester (Django); 2023–present: QuantPy, LangGraph, Flask
+    periods: [{ start: 2017, end: 2019 }, { start: 2023 }],
+    level: levels.advanced,
+    type: types.language,
+    logo: '/logos/python.png',
+  },
+  {
+    name: 'C++',
+    // 2024–present: Von Neumann Toy (Vulkan renderer, SDF cone marching)
+    periods: [{ start: 2024 }],
+    level: levels.skilled,
+    type: types.language,
+    logo: null,
+  },
+  {
+    name: 'Vulkan',
+    // 2024–present: Von Neumann Toy custom rendering engine
+    periods: [{ start: 2025, end: 2026 }],
+    level: levels.skilled,
+    type: types.language,
+    logo: null,
   },
   {
     name: 'Node.js',
@@ -88,6 +120,22 @@ export const skills = [
     logo: '/logos/react.png',
   },
   {
+    name: 'CDK',
+    // 2021–present: continuous use across all backend work
+    periods: [{ start: 2021 }],
+    level: levels.expert,
+    type: types.backend,
+    logo: '/logos/aws.png',
+  },
+  {
+    name: 'Git',
+    // 2014–present: continuous use
+    periods: [{ start: 2014 }],
+    level: levels.expert,
+    type: types.operations,
+    logo: '/logos/git.png',
+  },
+  {
     name: 'Redux',
     // 2019–present: ProMazo → College Board → Money Studio
     periods: [{ start: 2019 }],
@@ -99,9 +147,17 @@ export const skills = [
     name: 'Amplify',
     // 2019–2021: ProMazo only; College Board used CDK/CloudFormation directly
     periods: [{ start: 2019, end: 2021 }],
-    level: levels.expert,
+    level: levels.proficient,
     type: types.backend,
     logo: '/logos/amplify.png',
+  },
+  {
+    name: 'CSS',
+    // 2014–present: continuous use across all frontend work
+    periods: [{ start: 2014 }],
+    level: levels.expert,
+    type: types.frontend,
+    logo: '/logos/css.png',
   },
   {
     name: 'Express.js',
@@ -110,22 +166,6 @@ export const skills = [
     level: levels.advanced,
     type: types.backend,
     logo: '/logos/node-js.png',
-  },
-  {
-    name: 'Git',
-    // 2014–present: continuous use
-    periods: [{ start: 2014 }],
-    level: levels.advanced,
-    type: types.operations,
-    logo: '/logos/git.png',
-  },
-  {
-    name: 'AWS Suite',
-    // 2018–present: BNY Mellon → ProMazo → College Board → Money Studio
-    periods: [{ start: 2018 }],
-    level: levels.advanced,
-    type: types.backend,
-    logo: '/logos/aws.png',
   },
   {
     name: 'GraphQL',
@@ -142,14 +182,6 @@ export const skills = [
     level: levels.advanced,
     type: types.frontend,
     logo: '/logos/sass.png',
-  },
-  {
-    name: 'Python',
-    // 2017–2019: U of Rochester (Django); 2023–present: QuantPy, LangGraph, Flask
-    periods: [{ start: 2017, end: 2019 }, { start: 2023 }],
-    level: levels.proficient,
-    type: types.language,
-    logo: '/logos/python.png',
   },
   {
     name: 'Expo',
@@ -176,20 +208,12 @@ export const skills = [
     logo: '/logos/next-js.png',
   },
   {
-    name: 'TypeScript',
-    // 2019–present: Looker CLI tool → College Board → Money Studio monorepo
-    periods: [{ start: 2019 }],
-    level: levels.advanced,
-    type: types.language,
-    logo: '/logos/typescript.png',
-  },
-  {
     name: 'Jest',
     // 2020–present: ProMazo → College Board (100% coverage on subsystems) → ongoing
     periods: [{ start: 2020 }],
     level: levels.advanced,
     type: types.qa,
-    logo: '/logos/jest.png',
+    logo: null,
   },
   {
     name: 'Storybook',
@@ -197,7 +221,7 @@ export const skills = [
     periods: [{ start: 2020, end: 2021 }],
     level: levels.skilled,
     type: types.qa,
-    logo: '/logos/storybook.png',
+    logo: null,
   },
   {
     name: 'GitHub Actions',
@@ -205,7 +229,7 @@ export const skills = [
     periods: [{ start: 2021 }],
     level: levels.proficient,
     type: types.operations,
-    logo: '/logos/github-actions.png',
+    logo: '/logos/git.png',
   },
   {
     name: 'Playwright',
@@ -213,7 +237,7 @@ export const skills = [
     periods: [{ start: 2021, end: 2026 }],
     level: levels.proficient,
     type: types.qa,
-    logo: '/logos/playwright.png',
+    logo: null,
   },
   {
     name: 'Vite',
@@ -221,63 +245,63 @@ export const skills = [
     periods: [{ start: 2022 }],
     level: levels.proficient,
     type: types.tooling,
-    logo: '/logos/vite.png',
+    logo: null,
   },
   {
     name: 'Docker',
-    // 2022–present: homelab Docker Compose stacks, Money Studio dev environment
-    periods: [{ start: 2022 }],
+    // 2024–present: homelab Docker Compose stacks, Money Studio dev environment
+    periods: [{ start: 2024, end: 2026 }],
     level: levels.proficient,
     type: types.operations,
-    logo: '/logos/docker.png',
+    logo: null,
   },
   {
     name: 'Unreal Engine',
     // 2023–present: Unannounced Horror Game (UE5.3)
     periods: [{ start: 2023 }],
     level: levels.proficient,
-    type: types.software,
-    logo: '/logos/unreal-engine.png',
+    type: types.gameDevelopment,
+    logo: null,
   },
   {
     name: 'LangChain',
-    // 2023–present: Interactive Narrative LangGraph pipeline, Money Studio RAG
-    periods: [{ start: 2023 }],
+    // 2024–present: Interactive Narrative LangGraph pipeline, Money Studio RAG
+    periods: [{ start: 2024 }],
     level: levels.proficient,
-    type: types.backend,
-    logo: '/logos/langchain.png',
+    type: types.ai,
+    logo: null,
   },
   {
-    name: 'C++',
-    // 2023–present: Von Neumann Toy (Vulkan renderer, SDF cone marching)
-    periods: [{ start: 2023 }],
-    level: levels.skilled,
-    type: types.language,
-    logo: '/logos/cpp.png',
+    name: 'RAG',
+    // 2024–present: Money Studio financial RAG (encrypted local vector store), Interactive Narrative ChromaDB
+    periods: [{ start: 2024 }],
+    level: levels.proficient,
+    type: types.ai,
+    logo: null,
   },
   {
-    name: 'Vulkan',
-    // 2023–present: Von Neumann Toy custom rendering engine
-    periods: [{ start: 2023 }],
+    name: 'Stable Diffusion',
+    // 2024–present: Interactive Narrative scene-aware image generation pipeline with LoRAs
+    periods: [{ start: 2024 }],
     level: levels.skilled,
-    type: types.tooling,
-    logo: '/logos/vulkan.png',
+    type: types.ai,
+    logo: null,
+  },
+  {
+    name: 'LLM Templating',
+    // 2024–present: LangGraph prompt engineering, structured state extraction, JSON-mode reasoning models
+    periods: [{ start: 2024 }],
+    level: levels.proficient,
+    type: types.ai,
+    logo: null,
   },
   {
     name: 'Flask',
     // 2024–present: QuantPy API / Interactive Narrative backend tooling
-    periods: [{ start: 2024 }],
+    periods: [{ start: 2024, end: 2026 }],
     level: levels.skilled,
     type: types.backend,
-    logo: '/logos/flask.png',
-  },
-  {
-    name: 'Serverless Framework',
-    // 2019–2021: Mr. Bartender Node.js REST API, early ProMazo work
-    periods: [{ start: 2019, end: 2021 }],
-    level: levels.skilled,
-    type: types.backend,
-    logo: '/logos/serverless.png',
+    logo: null,
   },
   {
     name: 'Vue.js',
@@ -304,13 +328,6 @@ export const skills = [
     type: types.language,
     logo: '/logos/sql.png',
   },
-  // {
-  //   name: 'Laravel',
-  //   periods: [{ start: 2018, end: 2019 }],
-  //   level: levels.skilled,
-  //   type: types.backend,
-  //   logo: '/logos/laravel.png',
-  // },
 ]
 
 export default skills

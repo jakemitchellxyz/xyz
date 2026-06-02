@@ -12,7 +12,7 @@ export const FrontendDeveloper = ({ isFullScreen }) => {
     <Resume
       isFullScreen={isFullScreen}
       experienceFilter={null}
-      skillFilter={[ types.frontend ]}
+      skillFilter={[ types.frontend, types.language ]}
       projectFilter={[ types.frontend, types.mobile ]}
       summaryStatements={[
         <>I specialize in <Keyword>React</Keyword> and <Keyword>React Native</Keyword>, building component architectures, state management systems, and cross-platform UIs that ship to web, iOS, and Android from a single codebase.</>,

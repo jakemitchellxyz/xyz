@@ -16,9 +16,10 @@ export const Resume = ({ isFullScreen, experienceFilter, skillFilter, summarySta
   const isRelevantExperience = (job) => {
     return !experienceFilter ? true : !!job.technologies && job.technologies.length > 0 ? job.technologies.some(type => experienceFilter.includes(type)) : false
   }
-  const isRelevantSkill = (skill) => {
-    return !skillFilter ? true : skillFilter.includes(skill.type)
-  }
+
+  const orderedSkills = skillFilter
+    ? skillFilter.flatMap(type => filterSkills(skill => skill.type === type))
+    : filterSkills(() => true)
 
   const topProjects = getTopProjects(projectFilter !== undefined ? projectFilter : experienceFilter)
 
@@ -30,7 +31,7 @@ export const Resume = ({ isFullScreen, experienceFilter, skillFilter, summarySta
       <ResumeSummary
         isFullScreen={isFullScreen}
         statements={summaryStatements}
-        skills={filterSkills(isRelevantSkill)}
+        skills={orderedSkills}
       />
 
       <h1>Relevant Projects</h1>

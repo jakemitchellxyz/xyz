@@ -136,7 +136,7 @@ export const projects = [
       types.backend,
       types.language,
       types.tooling,
-      types.software,
+      types.gameDevelopment,
       types.ai,
     ],
     victories: [
@@ -154,7 +154,6 @@ export const projects = [
     technologies: [
       types.language,
       types.tooling,
-      types.software,
       types.gameDevelopment,
     ],
     victories: [
@@ -188,7 +187,6 @@ export const projects = [
     tagline: 'UE5.3 Multiplayer Horror Game',
     defaultRank: 6,
     technologies: [
-      types.software,
       types.backend,
       types.tooling,
       types.gameDevelopment,

@@ -12,7 +12,7 @@ export const SecurityEngineer = ({ isFullScreen }) => {
     <Resume
       isFullScreen={isFullScreen}
       experienceFilter={null}
-      skillFilter={[ types.security ]}
+      skillFilter={[ types.security, types.language, types.operations ]}
       summaryStatements={[
         <>I&apos;ve <Keyword>remediated 31 critical vulnerabilities</Keyword> in production, implemented <Keyword>JScrambler</Keyword> obfuscation pipelines, designed a <Keyword>blockchain integrity ledger</Keyword> for exam fraud detection, and built a <Keyword>federated authentication</Keyword> system to bank-grade security standards.</>,
         <>My security work spans <Keyword>application security</Keyword> (SAST, SCA, DAST, Prototype Pollution, Template Injection), <Keyword>cloud security</Keyword> (encrypted RDS, Cognito, IAM, IaC scanning with Checkov and OpenSSF Scorecard), and <Keyword>operational security</Keyword> (Qubes OS homelab with zero public internet exposure via WireGuard mesh VPN).</>,

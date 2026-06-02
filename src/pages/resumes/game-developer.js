@@ -11,8 +11,8 @@ export const GameDeveloper = ({ isFullScreen }) => {
     <Resume
       isFullScreen={isFullScreen}
       experienceFilter={null}
-      skillFilter={[ types.language, types.tooling, types.software ]}
-      projectFilter={[ types.gameDevelopment, types.software ]}
+      skillFilter={[ types.gameDevelopment, types.language, types.tooling  ]}
+      projectFilter={[ types.gameDevelopment ]}
       summaryStatements={[
         <>I build game systems from first principles; from a <Keyword>data-table-driven 11-tier size mechanic</Keyword> in UE5.3 to a fully custom <Keyword>C++ rendering engine</Keyword> using Vulkan and Signed Distance Fields with physically-accurate cone marching.</>,
         <>My background in <Keyword>software architecture</Keyword> carries directly into game development: I approach every game system as a scalable, data-driven design problem - parameters in tables, logic in code, nothing hardcoded in graph nodes or scene hierarchies.</>,

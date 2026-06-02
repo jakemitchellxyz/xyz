@@ -12,7 +12,7 @@ export const DevOpsEngineer = ({ isFullScreen }) => {
     <Resume
       isFullScreen={isFullScreen}
       experienceFilter={null}
-      skillFilter={[ types.operations, types.tooling, types.serverless, types.cloudInfrastructure, types.security ]}
+      skillFilter={[ types.operations, types.tooling, types.serverless, types.cloudInfrastructure, types.security, types.language ]}
       projectFilter={[ types.cloudInfrastructure, types.security ]}
       summaryStatements={[
         <>I design and operate <Keyword>cloud infrastructure at scale</Keyword>: cross-region active-active AWS architectures, <Keyword>observability-as-code</Keyword> monitoring pipelines, and <Keyword>IaC security scanning</Keyword> with SAST, SCA, DAST, Checkov, and OpenSSF Scorecard baked into every deployment.</>,
