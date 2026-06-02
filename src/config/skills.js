@@ -90,7 +90,7 @@ export const skills = [
   {
     name: 'C++',
     // 2024–present: Von Neumann Toy (Vulkan renderer, SDF cone marching)
-    periods: [{ start: 2024 }],
+    periods: [{ start: 2017, end: 2019 }, { start: 2024 }],
     level: levels.skilled,
     type: types.language,
     logo: null,
@@ -257,9 +257,30 @@ export const skills = [
   },
   {
     name: 'Unreal Engine',
-    // 2023–present: Unannounced Horror Game (UE5.3)
-    periods: [{ start: 2023 }],
-    level: levels.proficient,
+    // 2022–present: Unannounced Horror Game (UE5.3)
+    periods: [{start: 2015, end: 2017 }, { start: 2022 }],
+    level: levels.advanced,
+    type: types.gameDevelopment,
+    logo: null,
+  },
+  {
+    name: 'Unity 3D',
+    periods: [{start: 2012, end: 2015 }],
+    level: levels.skilled,
+    type: types.gameDevelopment,
+    logo: null,
+  },
+  {
+    name: 'Blender',
+    periods: [{start: 2019 }],
+    level: levels.skilled,
+    type: types.gameDevelopment,
+    logo: null,
+  },
+  {
+    name: 'Photoshop',
+    periods: [{ start: 2014 }],
+    level: levels.expert,
     type: types.gameDevelopment,
     logo: null,
   },
@@ -327,6 +348,22 @@ export const skills = [
     level: levels.proficient,
     type: types.language,
     logo: '/logos/sql.png',
+  },
+  {
+    name: 'Qubes OS',
+    // 2024–present: production homelab — Type-1 Xen hypervisor, qrexec policy, App Qubes
+    periods: [{ start: 2024 }],
+    level: levels.proficient,
+    type: types.security,
+    logo: null,
+  },
+  {
+    name: 'JScrambler',
+    // 2022–2026: College Board — JS obfuscation pipeline, sourcemap upload, bundle hardening
+    periods: [{ start: 2022, end: 2026 }],
+    level: levels.skilled,
+    type: types.security,
+    logo: null,
   },
 ]
 
