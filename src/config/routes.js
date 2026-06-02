@@ -22,6 +22,10 @@ export const routes = {
           "path": "/resumes/backend-engineer"
         },
         {
+          "title": "DevOps Engineer",
+          "path": "/resumes/devops-engineer"
+        },
+        {
           "title": "Frontend Developer",
           "path": "/resumes/frontend-developer"
         },
@@ -29,10 +33,10 @@ export const routes = {
         //   "title": "Mobile App Developer",
         //   "path": "/resumes/mobile-developer"
         // },
-        {
-          "title": "Serverless Cloud Engineer",
-          "path": "/resumes/serverless-engineer"
-        },
+        // {
+        //   "title": "Serverless Cloud Engineer",
+        //   "path": "/resumes/serverless-engineer"
+        // },
         // {
         //   "title": "Blockchain Systems Engineer",
         //   "path": "/resumes/blockchain-engineer"
@@ -40,6 +44,14 @@ export const routes = {
         {
           "title": "Security Engineer",
           "path": "/resumes/security-engineer"
+        },
+        {
+          "title": "Game Developer",
+          "path": "/resumes/game-developer"
+        },
+        {
+          "title": "AI Systems Engineer",
+          "path": "/resumes/ai-engineer"
         },
       ]
     },
@@ -73,16 +85,24 @@ export const routes = {
           "open": true,
           "routes": [
             {
-              "title": "Unannounced Video Game",
-              "path": "/projects/unannounced-game"
-            },
-            {
               "title": "Von Neumann Toy",
               "path": "/projects/von-neumann-toy"
             },
             {
+              "title": "QuantPy",
+              "path": "/projects/quantpy"
+            },
+            {
               "title": "Homelab",
               "path": "/projects/homelab"
+            },
+            {
+              "title": "Interactive Narrative LLM",
+              "path": "/projects/interactive-narrative"
+            },
+            {
+              "title": "Unannounced Video Game",
+              "path": "/projects/unannounced-game"
             },
           ]
         },

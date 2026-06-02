@@ -207,3 +207,12 @@
 .achievement a:hover {
   color: #0070f3;
 }
+
+.projectLink {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.projectLink:hover {
+  color: #0070f3;
+}

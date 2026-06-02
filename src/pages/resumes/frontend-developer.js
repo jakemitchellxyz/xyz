@@ -5,16 +5,17 @@ import Resume from '../../components/Resume'
 
 import { types } from '../../config/skills'
 
-export const FrontendEngineer = ({ isFullScreen }) => {
+import { yearsWritingCode, yearsProfessional } from '../../config/experience' = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
       experienceFilter={[ types.frontend ]}
       skillFilter={[ types.frontend ]}
+      projectFilter={[ types.frontend, types.mobile ]}
       summaryStatements={[
-        <>My experience building <Keyword>full-stack applications</Keyword> includes dozens of different paradigms and technology stacks, from <Keyword>Laravel</Keyword> and <Keyword>Django</Keyword> to <Keyword>AWS</Keyword> and <Keyword end=".">React Native</Keyword></>,
-        <>I&apos;ve been building software <Keyword>professionally</Keyword> for <Keyword end=",">6 years</Keyword> each project increasing in complexity and sophistication. I&apos;ve been <Keyword>writing</Keyword> code for <Keyword end=".">11 years</Keyword></>,
-        <>In the <Keyword end=",">last year</Keyword> I&apos;ve written over <Keyword>500k lines of code</Keyword> implementing dozens of features and hundreds of bug-fixes, primarily in <Keyword>React</Keyword>/<Keyword>Redux</Keyword> codebases.</>,
+        <>I specialize in <Keyword>React</Keyword> and <Keyword>React Native</Keyword>, building component architectures, state management systems, and cross-platform UIs that ship to web, iOS, and Android from a single codebase.</>,
+        <>I&apos;ve been building software <Keyword>professionally</Keyword> for <Keyword end=",">{yearsProfessional} years</Keyword> each project increasing in complexity and sophistication. I&apos;ve been <Keyword>writing</Keyword> code for <Keyword end=".">{yearsWritingCode} years</Keyword></>,
+        <>In the last year I&apos;ve written over <Keyword>500k lines of code</Keyword> implementing dozens of features and hundreds of bug-fixes, primarily in <Keyword>React</Keyword>/<Keyword>Redux</Keyword> codebases.</>,
       ]}
     />
   )

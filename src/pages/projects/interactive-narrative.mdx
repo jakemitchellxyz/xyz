@@ -1,0 +1,107 @@
+# Interactive Narrative World Engine
+
+The Interactive Narrative World Engine is a local-first LLM system I designed and built from scratch to solve one of the hardest problems in AI-assisted fiction: keeping a cast of characters, their relationships, their schedules, and the passage of time *actually consistent* across an arbitrarily long interactive story. The system is architected as a persistent simulation layer beneath a language model rather than as a chatbot. An author sets up a world with a cast of characters, and the engine maintains the ground truth of who those characters are, what they remember, how they feel, and what they are doing at every moment in the story's internal timeline.
+
+The target use case is genre fiction. Science fiction and fantasy authors can explore living worlds where a character introduced in chapter two has a daily routine, forms opinions about the protagonist based on prior encounters, carries remembered conversations, and exists in a physical location that makes spatial sense relative to every other character. The engine enforces all of that automatically so the author can focus on narrative intent rather than continuity bookkeeping.
+
+## Vector Databases and Retrieval
+
+**Chroma** serves two distinct retrieval roles:
+
+1. **Lore RAG**: a build-time pipeline (`build_rag_db.py`) chunks world-building markdown, optionally constructs a temporal knowledge graph with **PyKEEN** (`TransE`), and writes a `rag_documents` collection. This grounds the model in authored lore facts (geography, history, factions, terminology) without injecting that entire corpus into every prompt.
+
+2. **Runtime fuzzy entity resolution**: two persistent Chroma collections (`items`, `character_names`) resolve natural language references from the model ("the dark blue traveling cloak") to exact database IDs, preventing hallucinated item equips and ensuring every state delta references a record that actually exists.
+
+Embeddings are generated locally with **`sentence-transformers/all-MiniLM-L6-v2`** (384-dim) via a custom `EmbeddingProvider`.
+
+## Local Models and Inference
+
+The system runs entirely on local hardware with no cloud API dependency. Two model roles share a GPU:
+
+- **Character model**: a fine-tuned roleplay GGUF (llama.cpp) for in-character narrative responses, with higher temperature and repetition penalties tuned for prose variety
+- **Thinking model**: a reasoning-distilled model (DeepSeek-R1-Distill-Llama-8B via vLLM) for intent classification, spatial analysis, and post-turn JSON state extraction, with lower temperature and JSON-only output mode
+
+An `InferenceMode` enum selects between `SINGLE` (vLLM for character only), `SWAP` (GPU time-share via a `ModelSwapper`), and `DUAL` (two concurrent vLLM servers for 16GB+ GPUs). The OpenAI-compatible endpoint means either backend is swappable without changing application code.
+
+## LangGraph Orchestration Pipeline
+
+Every author prompt triggers an **8-node LangGraph pipeline** that resolves world state before, during, and after the model generates a response. The `StateGraph` is compiled once at startup and invoked per turn, with each node returning partial updates to a shared `TypedDict` state accumulated via LangGraph's `add_messages` reducer. The pipeline is:
+
+1. **`player_state_update`**: loads the current player context from the database
+2. **`state_reconciliation`**: compares every NPC's persisted state to their schedule at the current world time and corrects mismatches before any generation
+3. **`infer_and_update_player`**: resolves implicit player actions from prior exchanges
+4. **`user_intent_analysis`**: classifies the author's prompt for movement, dialogue, and narrative intent
+5. **`spatial_location_analysis`**: enforces spatial coherence (characters cannot act on one another across physical distance)
+6. **`player_location_update`**: commits any movement to the world model
+7. **`preprocessing`**: assembles the full generation context: emotional state, narrative threads, schedule, memory, and relationships
+8. **`character_response`** then **`memory_update`**: generates the character's in-world reply, then a second reasoning model extracts structured state deltas and writes them back to the database
+
+This pipeline pattern means the language model never operates on stale or hallucinated world state. Every response is grounded in a database record that the system controls.
+
+## Character-Based Data Persistence
+
+Character state is the canonical source of truth, stored in **SQLite** and seeded from a hierarchy of JSON configuration files (`world.json`, `locations/`, `player/`, `npcs/{id}/`). A `WorldLoader` class bootstraps from JSON on first run and reloads only persisted state on subsequent runs, so personalities, schedules, inventory, and relationships survive restarts indefinitely.
+
+Each character entity is modeled as a rich dataclass (`Character`, `NPC`, `PersonalityProfile`, `InnerThought`, `Schedule`) with a `to_context_string()` serializer that formats state for LLM injection. The NPC model captures:
+
+- **Psychology**: Big Five personality traits and derived roleplay dimensions
+- **Emotion**: circumplex valence/arousal coordinates mapped to emotion labels
+- **Memory**: a curated `memories[]` list with an importance-ranked pruning pass (`prioritize_npc_memories()`, max 15) and an `inner_thoughts[]` structure of typed `InnerThought` records (questions, goals, desires, observations) that resolve when answered and are not re-injected once resolved
+- **Relationships**: directional edges with strength, sentiment, and ordered `RelationshipMilestone[]` timestamped to universe time
+- **Inventory and appearance**: items and outfit presets tracked in SQLite, cross-referenced by schedule entries
+
+An `MCPClient` abstraction wraps the state layer behind a tool interface so the same read/write operations are available both in-process to the LangGraph pipeline and externally to any MCP-compatible agent.
+
+## World Logic Consistency
+
+Consistency is enforced structurally, not by prompting the model to "stay consistent." Two mechanisms handle this:
+
+**Pre-response schedule reconciliation**: before any generation, node 2 reads each NPC's weekly schedule (a `day -> hour -> ScheduleEntry` grid with priority and `required_focus` fields) against the current `universe_time`. If a character should have moved locations, changed clothes, or started a new activity since the last turn, the system updates the database directly or delegates the harder judgment calls to the thinking model before assembling the generation context. The model never sees a character in the wrong place.
+
+**Post-response structured state extraction**: after the character responds, a secondary reasoning model (lower temperature, JSON-only output) receives the conversation and emits a structured delta document covering approximately 15 change categories: clothing equipped or removed (resolved against actual inventory via vector fuzzy match to prevent phantom items), location and position changes (with spatial validity rules), emotion deltas, relationship milestones, memory additions, goal resolution, schedule mutations, and multi-turn event tracking (adventures, missions, journeys stored as `ongoing` event rows updated in place rather than fragmented). These deltas are applied deterministically to SQLite. The natural language response and the world state update are generated and committed in the same pipeline turn.
+
+Narrative threads across turns are tracked as `Event` rows with `status: ongoing`, `start_turn`, and `last_updated_turn`, so multi-session arcs accumulate coherently without duplicating history.
+
+## State-Machine Character Progression
+
+Character progression is multi-axis and data-driven. No axis is managed by prompting alone:
+
+<table>
+  <thead><tr><th>Axis</th><th>Mechanism</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Schedule / life simulation</strong></td><td>Weekly hour grid drives automatic location, outfit, and activity transitions at hour and day boundaries</td></tr>
+    <tr><td><strong>Relationship arcs</strong></td><td>Directional strength/sentiment edges with ordered milestones and interaction history</td></tr>
+    <tr><td><strong>Psychology</strong></td><td>Big Five <code>PersonalityProfile</code> shapes free-time activity suggestions when no schedule block is active</td></tr>
+    <tr><td><strong>Emotion</strong></td><td>Circumplex valence/arousal updated per-turn by state extraction; displayed to the model as labeled emotion states</td></tr>
+    <tr><td><strong>Memory consolidation</strong></td><td>Selective post-turn memory addition with importance-ranked pruning; resolved <code>InnerThought</code> records are retired</td></tr>
+    <tr><td><strong>Inventory / appearance continuity</strong></td><td>Item ownership, wear state, and outfit presets committed to DB; schedule can enforce <code>outfit_id</code> transitions automatically</td></tr>
+  </tbody>
+</table>
+
+The LangGraph `StateGraph` itself is the request-lifecycle state machine; the character progression layer is the persistent data state machine that survives across requests and sessions.
+
+## Universe Time and Uniform World Progression
+
+The world runs on a **`universe_time`** integer (minutes elapsed since the world epoch) stored as a single row in the `world_state` table. Every exchange advances `universe_time` by a configurable increment (default: +1 minute), so the world ages at a uniform, deterministic rate regardless of how many turns a session runs.
+
+`WorldState.get_formatted_time()` derives `Day N, HH:MM` and day-of-week from raw minutes. NPCs carry a `last_interaction_universe_time` field so the preprocessing node can inject "time since last encounter" into the generation context, allowing the model to naturally infer that a character who hasn't been spoken to in three in-world days may have formed new opinions, moved locations, or progressed through scheduled life events in the interim.
+
+An admin `skip-time` endpoint allows bulk time advancement for simulation, testing, and jumping the world forward between story chapters.
+
+## Prompt Design
+
+Prompts are assembled by a **Jinja2 template engine** (`template_engine.py`) that resolves a `RetrievedContext` dataclass into `character_response.j2` and `analysis_prompt.j2` templates. Context sections are composable: personality block, emotional state, schedule context, relationship summary, recent memories, resolved inner thoughts, spatial awareness, and lore retrieval results are assembled independently and slotted into named template regions.
+
+The post-response `STATE_ANALYSIS_PROMPT` is the system's "world consistency contract" with the thinking model: a large, explicitly structured prompt that enumerates all 15 change categories, their validation rules (no teleportation, no phantom inventory, no duplicate milestones), and the exact JSON schema expected back. The thinking model's output is parsed and applied deterministically; the narrative model never writes directly to the database.
+
+## Scene-Aware Image Generation
+
+The engine can render an image of any moment in the story on demand without the author describing the scene. Instead of accepting a text prompt from the user, the image pipeline reads the same SQLite world state that drives the narrative itself: the current characters present (resolved via `CharacterNameVectorStore` for multi-character compositions), their equipped outfits and appearance attributes, the active location's `image_generation` metadata, the mood and emotional state of each NPC, and the atmosphere of the current narrative beat.
+
+From that structured source of truth, the LLM composes the full diffusion prompt dynamically. It selects appropriate LoRAs for each character and style register, phrases weighted prompt tokens to reflect emotional tone and scene composition, chooses sampler parameters (Euler SMEA DY by default), and writes negative prompt content calibrated to the scene type. The author does not need to know anything about diffusion prompting; the same model that understands who is in the scene and how they feel is the one writing the generation instructions.
+
+Image jobs are dispatched asynchronously through a job queue with `job_result_storage` so generation does not block the narrative pipeline. The `diffusers_renderer.py` pipeline uses weighted prompt embeddings, a face detailer pass for character fidelity, and Pony-architecture checkpoints tuned for stylized output. Because every parameter of the image (characters, clothing, setting, mood, style) derives from the world state database rather than from a user-typed description, the output is always coherent with the current narrative moment and consistent with how those characters have appeared in prior scenes.
+
+## Tech Stack
+
+`Python` · `Flask` · `LangGraph` · `LangChain` · `LangChain-OpenAI` · `LangChain-Community` · `vLLM` · `llama.cpp` · `ChromaDB` · `sentence-transformers` · `PyKEEN (TransE)` · `SQLite` · `FastMCP` · `Jinja2` · `DeepSeek-R1-Distill-Llama-8B` · `Pony Diffusion (SDXL)` · `diffusers` · `Euler SMEA DY Sampler` · `LoRA` · `Face Detailer` · `Weighted Prompt Embeddings` · `OpenAI-Compatible API` · `Async Job Queue` · `Pydantic` · `loguru` · `RAG (Retrieval-Augmented Generation)` · `Knowledge Graph` · `State Machine` · `Multi-Model Inference` · `Local LLM Inference` · `Prompt Engineering` · `Structured Output Extraction` · `Vector Similarity Search` · `Fuzzy Entity Resolution`

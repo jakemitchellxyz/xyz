@@ -12,20 +12,6 @@ Money Studio is a financial visualization platform I am building from scratch as
 
 The engine is approximately 80% complete and actively deployed at a private instance of [money.studio](https://www.money.studio). Every screenshot is live software, not a mockup.
 
-## The Device System and Marketplace
-
-The engine's extensibility unit is a **Device** - a self-contained, typed, composable component that can represent a budget chart, a formula, a 3D isometric scene, a Sankey diagram, a data-source connector, or any arbitrary visualization metaphor. The marketplace sells Devices grouped into seven categories: Themes, Dashboards, Formulas, Devices, Metaphors, 3D Models, and Charts.
-
-Three production dashboards are built on top of the device system today:
-
-- **Isometric Financial Summary (IF Chart)** - a body-shaped 3D isometric scene aggregating cash, debt, investments, and budgeting over a projected 10-year horizon, with a one-click persona switcher for advisor demos.
-- **3D Net-Worth Surface** - a three-dimensional projection surface renderable across multi-decade horizons with controls for currency, inflation model, time-series step, height scale, and projection horizon.
-- **Budget Sankey** - a monthly cash-flow breakdown with hover-to-inspect detail, demonstrating that radically different visualizations can be composed on the same household data model without forking the underlying record.
-
-A **Data Sources** catalog exposes 26 financial APIs (government, professional, educational - including the St. Louis Fed's FRED API) so creators can pull external data into a Logic Editor flow without writing connector code.
-
-A **Financial Dictionary** ships with 172 terms, IPA pronunciations, plain-language examples, and inline links between related concepts, forming the in-app education layer that converts new users into engine literacy.
-
 ## Architecture Overview
 
 The codebase is a TypeScript **Yarn monorepo** organized into workspace families covering the main application, shared libraries (types, UI components, CDK helpers, generated client and server SDKs), AWS CDK infrastructure, web and native client targets, and internal tooling. Every package is type-checked together in a single pass before any build, catching cross-package type regressions at CI time.
@@ -62,7 +48,13 @@ The cloud backup subscription line is intentionally designed to self-fund the SO
 
 ## On-Device AI
 
-The application ships an on-device **AI assistant** powered by `@mlc-ai/web-llm`, which runs quantized LLM inference directly in the browser via WebGPU/WebAssembly - no data leaves the device for the AI feature. Model weights are downloaded from HuggingFace, converted to the MLC weight format, and served locally. A `prompt-engineering-explorer` workspace provides an internal tooling surface for iterating on system prompts against the on-device model.
+The application ships an on-device **AI assistant** powered by `@mlc-ai/web-llm`, which runs quantized LLM inference directly in the browser via WebGPU/WebAssembly - no data leaves the device for the AI feature. Model weights are downloaded from HuggingFace, converted to the MLC weight format, and served locally.
+
+The assistant is built on a custom **RAG (Retrieval-Augmented Generation)** pipeline that grounds every response in the user's actual financial data. A Snowflake embedding model (also served on-device via WebLLM, implementing the LangChain `EmbeddingsInterface`) vectorizes each financial entity as it enters the knowledge graph. Those vectors are stored in an **RxDB vector store** backed by encrypted IndexedDB (Dexie adapter, wrapped in key compression and CryptoJS encryption), so the vector index is persistent, private, and fully local. At query time, the user's question is embedded with the same model and the top-K most semantically similar knowledge graph nodes are retrieved via cosine similarity - surfacing contextually relevant accounts, transactions, debts, and projections without any keyword matching.
+
+A **templated prompt system** then assembles the response context. A `fillTemplateWith` function resolves LangChain-style `{{variable}}` tokens (model, provider, language, timestamp, input) against configurable per-session templates. For RAG-enhanced queries a dedicated `createRAGPromptTemplate` function structures the payload into explicit `User Prompt`, `Financial Context`, and `Response` sections, giving the model a consistent and legible format to reason over user-specific financial data. Session memory is managed as a layered stack - a long-term summarization pass, a sliding short-term context window, and optional injected system personas - all token-budget-aware. A separate Python toolchain (`build_rag_db.py`) uses **Chroma** and `sentence-transformers` to build static reference knowledge bases from financial markdown documents during development, enabling offline testing of the retrieval pipeline against curated content before deploying against live graph data.
+
+A `prompt-engineering-explorer` workspace provides an internal tooling surface for iterating on system prompts and RAG templates against the on-device model.
 
 ## Web3 Integration
 

@@ -458,6 +458,22 @@
   }
 }
 
+@media print {
+  .banner {
+    display: none;
+  }
+
+  .container {
+    height: auto;
+    min-height: 0;
+  }
+
+  .contentFullScreen {
+    height: auto;
+    overflow: visible;
+  }
+}
+
 .homePageNameLink {
   text-align: center;
 }

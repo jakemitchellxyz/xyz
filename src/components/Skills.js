@@ -4,6 +4,21 @@ import Image from 'next/image'
 import { skillAgeColors, skillLevelColors } from '../config/skills'
 
 export const Skills = ({ skills, isFullScreen }) => {
+  const computeYears = (periods) => {
+    const currentYear = new Date().getFullYear()
+    const segs = periods
+      .map(p => [p.start, p.end ?? currentYear])
+      .sort((a, b) => a[0] - b[0])
+    let total = 0, s = null, e = null
+    for (const [start, end] of segs) {
+      if (s === null) { s = start; e = end }
+      else if (start <= e) { e = Math.max(e, end) }
+      else { total += e - s; s = start; e = end }
+    }
+    if (s !== null) total += e - s
+    return Math.max(total, 1)
+  }
+
   return (
     <div className={[styles.skills, isFullScreen ? styles.fullScreen : ''].join(' ')}>
       <table>
@@ -20,8 +35,8 @@ export const Skills = ({ skills, isFullScreen }) => {
             </th>
           </tr>
           {skills.map((skill, i) => {
-            const skillDuration = !!skill.yearEnded ? skill.yearEnded - skill.yearStarted : (new Date).getFullYear() - skill.yearStarted
-            const skillColorIndex = Math.min(skillDuration || 1, skillAgeColors.length) - 1
+            const skillDuration = computeYears(skill.periods)
+            const skillColorIndex = Math.min(skillDuration, skillAgeColors.length) - 1
 
             return (
               <tr className={styles.skillCard} key={`skill_${i}`}>
@@ -33,7 +48,7 @@ export const Skills = ({ skills, isFullScreen }) => {
                 </td>
                 <td>
                   <p style={{ color: skillAgeColors[skillColorIndex] }}>
-                    {`${skillDuration || 1} year${skillDuration > 1 ? 's' : ''}`}
+                    {`${skillDuration} year${skillDuration > 1 ? 's' : ''}`}
                   </p>
                 </td>
                 <td>

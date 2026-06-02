@@ -9,7 +9,7 @@ export const useJobExperiences = () => {
     {
       title: 'Senior Software Engineer',
       company: 'The College Board',
-      technologies: [ types.backend, types.frontend, types.qa, types.operations, types.serverless, types.tooling ],
+      technologies: [ types.backend, types.frontend, types.qa, types.operations, types.serverless, types.tooling, types.security, types.blockchain, types.language ],
       projects: [{
         name: 'Bluebook (Digital SAT)',
         logo: '/logos/college-board.png',
@@ -82,7 +82,7 @@ export const useJobExperiences = () => {
     {
       title: 'Software Architect Intern',
       company: 'Looker Data Sciences, Inc.',
-      technologies: [ types.backend, types.tooling, types.qa, types.operations ],
+      technologies: [ types.backend, types.tooling, types.qa, types.operations, types.language ],
       projects: [{
         name: 'Developer Tools',
         logo: '/logos/looker.png',
@@ -126,6 +126,24 @@ export const useJobExperiences = () => {
           <>Configured and deployed <Keyword>Node.js</Keyword> <Keyword>REST API</Keyword> to handle requests on <Keyword>Heroku</Keyword></>,
           <>Integrated a developer <Keyword>CLI tool</Keyword> into the existing <Keyword>CI/CD</Keyword> stack by working with <Keyword end=",">GitHub</Keyword> <Keyword end=",">Jenkins</Keyword> and <Keyword>AWS S3</Keyword></>,
           <>Developed dozens of <Keyword>integration tests</Keyword> using <Keyword>Puppeteer</Keyword> and an in-house tool built on top of <Keyword>Cucumber</Keyword></>,
+        ]
+      }]
+    },
+    {
+      title: 'Full Stack Engineer',
+      company: 'University of Rochester IT Department',
+      technologies: [ types.backend, types.frontend, types.tooling, types.language ],
+      projects: [{
+        name: 'LASSO',
+        logo: '/logos/university-of-rochester.png',
+        start: 'Feb. 2017',
+        end: 'May 2019',
+        victories: [
+          <>Maintained and extended the legacy <Keyword>Django</Keyword> <Keyword>server-side-rendered MVC</Keyword> codebase in <Keyword>Python</Keyword>, resolving bugs and shipping new features on <Keyword>LASSO</Keyword>, the in-house <Keyword>employment and inventory management</Keyword> system</>,
+          <>Joined a team of <Keyword>5 engineers</Keyword> to rewrite LASSO from scratch in a <Keyword>separate repository</Keyword>, replacing a codebase tangled with <Keyword>cross-cutting concerns</Keyword></>,
+          <>Delivered a full platform rewrite in <Keyword>4 months</Keyword></>,
+          <>Built a <Keyword>REST API</Keyword> on the backend with <Keyword>Express.js</Keyword> and <Keyword>Node.js</Keyword></>,
+          <>Implemented frontend logic with <Keyword>Vue.js</Keyword> for the new LASSO platform</>
         ]
       }]
     }
