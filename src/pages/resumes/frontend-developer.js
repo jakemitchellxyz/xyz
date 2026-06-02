@@ -23,4 +23,4 @@ export const FrontendDeveloper = ({ isFullScreen }) => {
   )
 }
 
-export default FrontendEngineer
+export default FrontendDeveloper
