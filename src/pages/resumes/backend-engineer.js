@@ -11,7 +11,7 @@ export const BackendEngineer = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
-      experienceFilter={[ types.backend ]}
+      experienceFilter={null}
       skillFilter={[ types.backend ]}
       summaryStatements={[
         <>I have <Keyword>6+ years</Keyword> of hands-on experience building and operating cloud backend systems on <Keyword>AWS</Keyword>: serverless architectures, GraphQL and REST APIs, NoSQL databases at <Keyword>billions-of-records scale</Keyword>, and cross-region active-active infrastructure.</>,

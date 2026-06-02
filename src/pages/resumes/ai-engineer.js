@@ -10,7 +10,7 @@ export const AIEngineer = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
-      experienceFilter={[ types.backend, types.language ]}
+      experienceFilter={null}
       skillFilter={[ types.language, types.backend, types.tooling ]}
       projectFilter={[ types.ai ]}
       summaryStatements={[

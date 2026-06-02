@@ -10,7 +10,7 @@ export const GameDeveloper = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
-      experienceFilter={[ types.backend, types.language, types.tooling ]}
+      experienceFilter={null}
       skillFilter={[ types.language, types.tooling, types.software ]}
       projectFilter={[ types.gameDevelopment, types.software ]}
       summaryStatements={[

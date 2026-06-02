@@ -11,7 +11,7 @@ export const FrontendDeveloper = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
-      experienceFilter={[ types.frontend ]}
+      experienceFilter={null}
       skillFilter={[ types.frontend ]}
       projectFilter={[ types.frontend, types.mobile ]}
       summaryStatements={[

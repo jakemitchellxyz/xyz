@@ -11,7 +11,7 @@ export const SecurityEngineer = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
-      experienceFilter={[ types.security ]}
+      experienceFilter={null}
       skillFilter={[ types.security ]}
       summaryStatements={[
         <>I&apos;ve <Keyword>remediated 31 critical vulnerabilities</Keyword> in production, implemented <Keyword>JScrambler</Keyword> obfuscation pipelines, designed a <Keyword>blockchain integrity ledger</Keyword> for exam fraud detection, and built a <Keyword>federated authentication</Keyword> system to bank-grade security standards.</>,

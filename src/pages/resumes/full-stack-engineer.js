@@ -11,7 +11,7 @@ export const FullStackEngineer = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
-      experienceFilter={[ types.backend, types.frontend ]}
+      experienceFilter={null}
       skillFilter={[ types.backend, types.frontend, types.tooling, types.operations, types.language ]}
       summaryStatements={[
         <>I&apos;ve built <Keyword>full-stack systems</Keyword> across dozens of paradigms and stacks, from <Keyword>Laravel</Keyword> and <Keyword>Django</Keyword> to <Keyword>AWS serverless</Keyword> and <Keyword>React Native</Keyword>, taking products from initial architecture through production at scale.</>,

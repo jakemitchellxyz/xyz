@@ -11,7 +11,7 @@ export const DevOpsEngineer = ({ isFullScreen }) => {
   return (
     <Resume
       isFullScreen={isFullScreen}
-      experienceFilter={[ types.operations, types.serverless ]}
+      experienceFilter={null}
       skillFilter={[ types.operations, types.tooling, types.serverless, types.cloudInfrastructure, types.security ]}
       projectFilter={[ types.cloudInfrastructure, types.security ]}
       summaryStatements={[
