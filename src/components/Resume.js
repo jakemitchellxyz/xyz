@@ -8,7 +8,7 @@ import useJobExperiences from '../config/jobs'
 import { useSkills } from '../config/skills'
 import { useProjects } from '../config/projects'
 
-export const Resume = ({ isFullScreen, experienceFilter, skillFilter, summaryStatements, projectFilter }) => {
+export const Resume = ({ isFullScreen, experienceFilter, skillFilter, summaryStatements, projectFilter, disableProjectHighlights }) => {
   const { filterJobs } = useJobExperiences()
   const { filterSkills } = useSkills()
   const { getTopProjects } = useProjects()
@@ -21,7 +21,9 @@ export const Resume = ({ isFullScreen, experienceFilter, skillFilter, summarySta
     ? skillFilter.flatMap(type => filterSkills(skill => skill.type === type))
     : filterSkills(() => true)
 
-  const topProjects = getTopProjects(projectFilter !== undefined ? projectFilter : experienceFilter)
+  const topProjects = !disableProjectHighlights
+    ? getTopProjects(projectFilter !== undefined ? projectFilter : experienceFilter)
+    : []
 
   return (
     <div className={[styles.container, isFullScreen ? styles.fullScreen : ''].join(' ')}>
@@ -34,8 +36,12 @@ export const Resume = ({ isFullScreen, experienceFilter, skillFilter, summarySta
         skills={orderedSkills}
       />
 
-      <h1>Relevant Projects</h1>
-      <RelevantProjects projects={topProjects} />
+      {!disableProjectHighlights && (
+        <>
+          <h1>Relevant Projects</h1>
+          <RelevantProjects projects={topProjects} />
+        </>
+      )}
 
       <h1>Employment History</h1>
       <EmploymentHistory experiences={filterJobs(isRelevantExperience)} />

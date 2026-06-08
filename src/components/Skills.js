@@ -42,8 +42,7 @@ export const Skills = ({ skills, isFullScreen }) => {
               <tr className={styles.skillCard} key={`skill_${i}`}>
                 <td>
                   <h5>
-                    {!!skill.logo && <Image src={skill.logo} alt={`${skill.name} logo`} width={16} height={16} />}
-                    &nbsp;
+                    {!!skill.logo && <><Image src={skill.logo} alt={`${skill.name} logo`} width={16} height={16} />&nbsp;</>}
                     {skill.name}
                   </h5>
                 </td>

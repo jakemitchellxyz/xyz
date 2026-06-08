@@ -25,6 +25,7 @@ export const types = {
   mobile: 'Mobile',
   management: 'Management',
   finances: 'Finances',
+  soft: 'Soft Skills',
 }
 
 export const skillAgeColors = [
@@ -375,6 +376,64 @@ export const skills = [
     periods: [{ start: 2022, end: 2026 }],
     level: levels.skilled,
     type: types.security,
+    logo: null,
+  },
+
+  // ── Soft Skills ───────────────────────────────────────────────────────────
+  {
+    name: 'Customer Service',
+    // 2015–2016: bank teller, 2016-2019: digital media lab
+    periods: [{ start: 2015, end: 2016 }, { start: 2016, end: 2019 }],
+    level: levels.expert,
+    type: types.soft,
+    logo: null,
+  },
+  {
+    name: 'Technical Leadership',
+    // 2019–present: Solutions Architect at ProMazo; owned architectural decisions across teams
+    periods: [{ start: 2019 }],
+    level: levels.advanced,
+    type: types.soft,
+    logo: null,
+  },
+  {
+    name: 'Cash Handling',
+    // 2015–2016: bank teller
+    periods: [{ start: 2015, end: 2016 }],
+    level: levels.expert,
+    type: types.soft,
+    logo: null,
+  },
+  {
+    name: 'Attention to Detail',
+    // 2015–present: $50k/day cash handling, bank compliance procedures, 100% test coverage subsystems
+    periods: [{ start: 2015 }],
+    level: levels.expert,
+    type: types.soft,
+    logo: null,
+  },
+  {
+    name: 'Problem Solving',
+    // 2015–present: financial discrepancy resolution, performance bottlenecks, security vulnerabilities
+    periods: [{ start: 2015 }],
+    level: levels.expert,
+    type: types.soft,
+    logo: null,
+  },
+  {
+    name: 'Financial Literacy',
+    // 2015–present: bank teller procedures, BNY Mellon financial data systems, QuantPy, Money Studio
+    periods: [{ start: 2015 }],
+    level: levels.advanced,
+    type: types.soft,
+    logo: null,
+  },
+  {
+    name: 'Conflict Resolution',
+    // 2015–present: bank teller, digital media lab, developer-facing roles across all jobs
+    periods: [{ start: 2015 }],
+    level: levels.expert,
+    type: types.soft,
     logo: null,
   },
 ]

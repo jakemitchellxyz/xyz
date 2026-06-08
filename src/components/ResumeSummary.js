@@ -1,17 +1,45 @@
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 
 import Skills from './Skills'
 import styles from '../../styles/Resumes.module.css'
 
 export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
+  const statementsRef = useRef(null)
+  const skillsWrapperRef = useRef(null)
+  const [certFullWidth, setCertFullWidth] = useState(false)
+
+  useEffect(() => {
+    const check = () => {
+      if (!statementsRef.current || !skillsWrapperRef.current) return
+      setCertFullWidth(statementsRef.current.offsetHeight >= skillsWrapperRef.current.offsetHeight)
+    }
+    const ro = new ResizeObserver(check)
+    if (statementsRef.current) ro.observe(statementsRef.current)
+    if (skillsWrapperRef.current) ro.observe(skillsWrapperRef.current)
+    check()
+    return () => ro.disconnect()
+  }, [])
+
   return (
     <div className={styles.summary}>
-      <div className={[styles.summaryText, isFullScreen ? styles.fullScreen : ''].join(' ')}>
+      <div
+        ref={statementsRef}
+        className={[styles.summaryText, isFullScreen ? styles.fullScreen : ''].join(' ')}
+      >
         {statements.map((statement, i) => (
           <p key={`statemtent_${i}`}>{statement}</p>
         ))}
+      </div>
 
+      <div ref={skillsWrapperRef} className={styles.skillsWrapper}>
+        <Skills skills={skills} isFullScreen={isFullScreen} />
+      </div>
+
+      <div className={[
+        styles.certificationsSection,
+        certFullWidth ? styles.certificationsSectionFullWidth : '',
+      ].join(' ').trim()}>
         <h2>Certifications / Awards</h2>
         <div className={[styles.achievements, isFullScreen ? styles.fullScreen : ''].join(' ')}>
           <div className={[styles.achievement, isFullScreen ? styles.fullScreen : ''].join(' ')}>
@@ -30,7 +58,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
                 target="_blank"
                 rel="noreferrer"
                 style={{ marginTop: 5 }}
-                >
+              >
                 View Scholarship &rarr;
               </a>
             </div>
@@ -51,7 +79,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
                 target="_blank"
                 rel="noreferrer"
                 style={{ marginTop: 5 }}
-                >
+              >
                 View Certificate &rarr;
               </a>
             </div>
@@ -59,7 +87,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
           <div className={[styles.achievement, isFullScreen ? styles.fullScreen : ''].join(' ')}>
             <Image
               src="/certifications/emagine-media-festival.png"
-              alt="ProMazo Fellow Program"
+              alt="eMagine Media Festival"
               width={60}
               height={60}
             />
@@ -72,7 +100,7 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
                 target="_blank"
                 rel="noreferrer"
                 style={{ marginTop: 5 }}
-                >
+              >
                 View Festival &rarr;
               </a>
             </div>
@@ -93,15 +121,13 @@ export const ResumeSummary = ({ isFullScreen, statements, skills }) => {
                 target="_blank"
                 rel="noreferrer"
                 style={{ marginTop: 5 }}
-                >
+              >
                 View Workforce &rarr;
               </a>
             </div>
           </div>
         </div>
       </div>
-
-      <Skills skills={skills} isFullScreen={isFullScreen} />
     </div>
   )
 }
