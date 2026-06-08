@@ -97,10 +97,16 @@
 .skillsWrapper {
   width: 100%;
 }
+.summaryColumn {
+  width: 100%;
+}
 .skillsTitle {
   margin: 0 0 5px 0;
 }
 .certificationsSection {
+  width: 100%;
+}
+.certificationsSectionFullWidth {
   width: 100%;
 }
 @media(min-width: 1200px) {
@@ -108,6 +114,9 @@
     max-width: 400px;
   }
   .skillsWrapper {
+    max-width: 400px;
+  }
+  .summaryColumn {
     max-width: 400px;
   }
   .summary {
@@ -118,28 +127,16 @@
   .skillsWrapper {
     width: 50%;
   }
-  .summaryText {
+  .summaryColumn {
     width: 50%;
-  }
-  .certificationsSection {
-    width: 50%;
-  }
-  .certificationsSectionFullWidth {
-    width: 100%;
   }
 }
 @media print {
   .skillsWrapper {
     width: 40% !important;
   }
-  .summaryText {
+  .summaryColumn {
     width: 60% !important;
-  }
-  .certificationsSection {
-    width: 60% !important;
-  }
-  .certificationsSectionFullWidth {
-    width: 100% !important;
   }
 }
 
