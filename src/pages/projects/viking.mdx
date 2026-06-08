@@ -1,0 +1,27 @@
+# <img src="/logos/bny.png" alt="BNY Mellon logo" width="28" /> Viking
+
+**Viking** was an internal wealth management platform built for **The Bank of New York Mellon**. It gave internal wealth managers a structured workspace to define custom groups of publicly traded equities and run proprietary analytical algorithms against that data. The results were rendered as interactive charts and could be exported as polished PDF reports for use in client advisory sessions.
+
+## What It Does
+
+Wealth managers at BNY Mellon work with clients whose portfolios span dozens or hundreds of positions. Viking addressed a core operational need: the ability to define a named group of equities, run firm-specific analytical models on that basket, visualize the output, and produce a client-ready document, all within a single internal tool.
+
+The workflow was straightforward:
+
+1. A manager creates a named equity group and populates it with tickers
+2. A proprietary algorithm runs against the group's historical and real-time market data
+3. The platform renders the algorithm's output as charts
+4. The manager exports the charts and results as a formatted PDF report to share with clients
+
+## My Contributions
+
+As the **Cloud Backend Engineer**, I designed and built the entire server-side infrastructure:
+
+- **SQL database**: Designed an 8-table relational schema and provisioned it via **AWS RDS** with encryption at rest and automated disaster-recovery backups
+- **REST API**: Built the API layer using **AWS API Gateway** connected to **AWS Lambda** serverless functions, providing the wealth manager frontend with access to equity groups, algorithm results, and report data
+- **Authentication**: Implemented a **federated authentication** system using **AWS Cognito** conforming to BNY Mellon's strict internal security standards
+- **Data ingestion pipeline**: Built a big-data processing pipeline using **AWS Lambda**, **Kinesis**, **CloudWatch**, **S3**, and **Step Functions** to ingest the financial market data the algorithms consumed
+
+## Tech Stack
+
+`AWS RDS` · `AWS Lambda` · `API Gateway` · `AWS Cognito` · `Kinesis` · `S3` · `Step Functions` · `CloudWatch` · `SQL` · `Serverless Architecture` · `Federated Authentication` · `Financial Data Pipelines`

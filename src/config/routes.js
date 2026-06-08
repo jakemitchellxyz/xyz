@@ -53,6 +53,10 @@ export const routes = {
           "title": "AI Systems Engineer",
           "path": "/resumes/ai-engineer"
         },
+        {
+          "title": "Revenue Control Manager",
+          "path": "/resumes/revenue-control-manager"
+        },
       ]
     },
     {
@@ -61,19 +65,24 @@ export const routes = {
       "path": "/projects",
       "routes": [
         {
-          "title": "Money Studio",
-          "logo": "/logos/money-studio.png",
-          "path": "/projects/money-studio"
-        },
-        {
           "title": "Bluebook (Digital SAT)",
           "logo": "/logos/college-board.png",
           "path": "/projects/bluebook"
         },
         {
+          "title": "Viking",
+          "logo": "/logos/bny.png",
+          "path": "/projects/viking"
+        },
+        {
           "title": "100k Mentor Challenge",
           "logo": "/logos/100k.png",
           "path": "/projects/100k"
+        },
+        {
+          "title": "Money Studio",
+          "logo": "/logos/money-studio.png",
+          "path": "/projects/money-studio"
         },
         {
           "title": "Mr. Bartender",

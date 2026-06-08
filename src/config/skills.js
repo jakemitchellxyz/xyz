@@ -23,6 +23,8 @@ export const types = {
   gameDevelopment: 'Game Development',
   ai: 'AI',
   mobile: 'Mobile',
+  management: 'Management',
+  finances: 'Finances',
 }
 
 export const skillAgeColors = [
@@ -257,22 +259,24 @@ export const skills = [
   },
   {
     name: 'Unreal Engine',
-    // 2022–present: Unannounced Horror Game (UE5.3)
-    periods: [{start: 2015, end: 2017 }, { start: 2022 }],
+    // 2015–2019: personal projects + Rettner Digital Media Lab; 2022–present: Unannounced Horror Game (UE5.3)
+    periods: [{start: 2015, end: 2019 }, { start: 2022 }],
     level: levels.advanced,
     type: types.gameDevelopment,
     logo: null,
   },
   {
     name: 'Unity 3D',
-    periods: [{start: 2012, end: 2015 }],
+    // 2012–2019: personal projects + Rettner Digital Media Lab
+    periods: [{start: 2012, end: 2019 }],
     level: levels.skilled,
     type: types.gameDevelopment,
     logo: null,
   },
   {
     name: 'Blender',
-    periods: [{start: 2019 }],
+    // 2016–present: Rettner Digital Media Lab, then personal projects
+    periods: [{ start: 2016 }],
     level: levels.skilled,
     type: types.gameDevelopment,
     logo: null,
@@ -281,6 +285,14 @@ export const skills = [
     name: 'Photoshop',
     periods: [{ start: 2014 }],
     level: levels.expert,
+    type: types.gameDevelopment,
+    logo: null,
+  },
+  {
+    name: 'Illustrator',
+    // 2016–2019: Rettner Digital Media Lab
+    periods: [{ start: 2016, end: 2019 }],
+    level: levels.skilled,
     type: types.gameDevelopment,
     logo: null,
   },
@@ -351,7 +363,7 @@ export const skills = [
   },
   {
     name: 'Qubes OS',
-    // 2024–present: production homelab — Type-1 Xen hypervisor, qrexec policy, App Qubes
+    // 2024–present: production homelab - Type-1 Xen hypervisor, qrexec policy, App Qubes
     periods: [{ start: 2024 }],
     level: levels.proficient,
     type: types.security,
@@ -359,7 +371,7 @@ export const skills = [
   },
   {
     name: 'JScrambler',
-    // 2022–2026: College Board — JS obfuscation pipeline, sourcemap upload, bundle hardening
+    // 2022–2026: College Board - JS obfuscation pipeline, sourcemap upload, bundle hardening
     periods: [{ start: 2022, end: 2026 }],
     level: levels.skilled,
     type: types.security,

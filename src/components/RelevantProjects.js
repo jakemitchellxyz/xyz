@@ -6,7 +6,7 @@ import Victory from './Victory'
 import styles from '../../styles/EmploymentHistory.module.css'
 import resumeStyles from '../../styles/Resumes.module.css'
 
-export const ProjectEntry = ({ name, logo, link, tagline, victories }) => {
+export const ProjectEntry = ({ name, logo, link, tagline, category, victories }) => {
   return (
     <div className={styles.jobExperience}>
       <h2>
@@ -21,7 +21,7 @@ export const ProjectEntry = ({ name, logo, link, tagline, victories }) => {
           )}
           <h3 style={{ marginLeft: logo ? 12 : 30 }}>{tagline}</h3>
         </div>
-        <p>Personal Project</p>
+        <p>{category ?? 'Personal Project'}</p>
       </div>
       {victories && victories.map((victory, i) => (
         <Victory key={`pv_${i}`}>{victory}</Victory>

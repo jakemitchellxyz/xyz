@@ -12,13 +12,20 @@ export const useProjects = () => {
         .sort((a, b) => a.defaultRank - b.defaultRank)
         .slice(0, count)
     }
-    return [...eligible]
-      .map(p => ({
-        ...p,
-        score: p.technologies.filter(t => filter.includes(t)).length,
-      }))
-      .sort((a, b) => b.score - a.score || a.defaultRank - b.defaultRank)
-      .slice(0, count)
+    const seen = new Set()
+    const result = []
+    for (const type of filter) {
+      if (result.length >= count) break
+      const matching = eligible
+        .filter(p => p.technologies.includes(type) && !seen.has(p.name))
+        .sort((a, b) => a.defaultRank - b.defaultRank)
+      for (const p of matching) {
+        if (result.length >= count) break
+        seen.add(p.name)
+        result.push(p)
+      }
+    }
+    return result
   }
 
   // Returns all projects matching a given tag (for the Projects index page)
@@ -38,6 +45,7 @@ export const projects = [
     logo: '/logos/college-board.png',
     link: '/projects/bluebook',
     tagline: 'Senior Software Engineer at The College Board',
+    category: 'Proprietary Software',
     defaultRank: 0,
     technologies: [
       types.frontend,
@@ -62,6 +70,7 @@ export const projects = [
     logo: '/logos/100k.png',
     link: '/projects/100k',
     tagline: 'Lead Solutions Architect at ProMazo',
+    category: 'Proprietary Software',
     defaultRank: 0.5,
     technologies: [
       types.frontend,
@@ -72,11 +81,33 @@ export const projects = [
       types.mobile,
       types.multiPlatform,
       types.cloudInfrastructure,
+      types.management,
     ],
     victories: [
       <>Cross-platform <Keyword>iOS and Android</Keyword> app built by a 3-engineer team: launched from <Keyword>MVP to 1,000+ downloads</Keyword> within months with a 4.2★ App Store rating and Fortune 500 corporate partners</>,
       <>AWS serverless backend with a dedicated <Keyword>EC2 matching algorithm</Keyword> computing ranked mentor/mentee candidate lists from preference vectors via stable-match resolution</>,
       <><Keyword>220k+ line</Keyword> React Native codebase with full CI/CD pipeline to both app stores via <Keyword>AWS Amplify</Keyword>, plus Jest, Storybook, and Docsify for QA and living documentation</>,
+    ],
+  },
+
+  {
+    name: 'Viking',
+    logo: '/logos/bny.png',
+    link: '/projects/viking',
+    tagline: 'Cloud Backend Engineer at BNY Mellon',
+    category: 'Proprietary Software',
+    defaultRank: 1.5,
+    technologies: [
+      types.backend,
+      types.serverless,
+      types.security,
+      types.cryptography,
+      types.operations,
+      types.finances,
+    ],
+    victories: [
+      <>Internal wealth management platform where managers define groups of public equities, run <Keyword>proprietary algorithms</Keyword> against market data, and export the results as <Keyword>PDF reports</Keyword> for client advisory sessions</>,
+      <>AWS serverless backend with an <Keyword>8-table encrypted RDS database</Keyword>, a Kinesis-powered <Keyword>financial data ingestion pipeline</Keyword>, and a <Keyword>federated authentication</Keyword> system meeting BNY Mellon&apos;s strict internal security standards</>,
     ],
   },
 
@@ -86,6 +117,7 @@ export const projects = [
     logo: '/logos/money-studio.png',
     link: '/projects/money-studio',
     tagline: 'Founder & Principal Engineer',
+    category: 'Software Startup',
     defaultRank: 1,
     technologies: [
       types.frontend,
@@ -99,6 +131,7 @@ export const projects = [
       types.multiPlatform,
       types.cloudInfrastructure,
       types.ai,
+      types.finances,
     ],
     victories: [
       <>Built as <Keyword>founder and principal engineer</Keyword>: a TypeScript monorepo shipping a financial visualization platform to <Keyword>5 platforms</Keyword> (web PWA, iOS, Android, Electron, Tauri) from a single codebase</>,
@@ -208,6 +241,7 @@ export const projects = [
       types.backend,
       types.tooling,
       types.ai,
+      types.finances,
     ],
     victories: [
       <>Python library implementing <Keyword>Modern Portfolio Theory</Keyword>: Sharpe ratio maximization, minimum variance optimization, and efficient frontier tracing via <Keyword>SciPy SLSQP</Keyword> constrained optimization</>,

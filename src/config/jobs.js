@@ -133,20 +133,53 @@ export const useJobExperiences = () => {
       title: 'Full Stack Engineer',
       company: 'University of Rochester IT Department',
       technologies: [ types.backend, types.frontend, types.tooling, types.language ],
+      projects: [
+        {
+          name: 'LASSO',
+          logo: '/logos/university-of-rochester.png',
+          start: 'Feb. 2017',
+          end: 'May 2019',
+          victories: [
+            <>Maintained and extended the legacy <Keyword>Django</Keyword> <Keyword>server-side-rendered MVC</Keyword> codebase in <Keyword>Python</Keyword>, resolving bugs and shipping new features on <Keyword>LASSO</Keyword>, the in-house <Keyword>employment and inventory management</Keyword> system</>,
+            <>Joined a team of <Keyword>5 engineers</Keyword> to rewrite LASSO from scratch in a <Keyword>separate repository</Keyword>, replacing a codebase tangled with <Keyword>cross-cutting concerns</Keyword></>,
+            <>Delivered a full platform rewrite in <Keyword>4 months</Keyword></>,
+            <>Built a <Keyword>REST API</Keyword> on the backend with <Keyword>Express.js</Keyword> and <Keyword>Node.js</Keyword></>,
+            <>Implemented frontend logic with <Keyword>Vue.js</Keyword> for the new LASSO platform</>
+          ]
+        },
+      ]
+    },
+    {
+      title: 'Digital Media Specialist',
+      company: 'Rettner Hall Digital Media Lab at University of Rochester',
+      technologies: [ types.software, types.gameDevelopment ],
       projects: [{
-        name: 'LASSO',
         logo: '/logos/university-of-rochester.png',
-        start: 'Feb. 2017',
+        start: 'Oct. 2016',
         end: 'May 2019',
         victories: [
-          <>Maintained and extended the legacy <Keyword>Django</Keyword> <Keyword>server-side-rendered MVC</Keyword> codebase in <Keyword>Python</Keyword>, resolving bugs and shipping new features on <Keyword>LASSO</Keyword>, the in-house <Keyword>employment and inventory management</Keyword> system</>,
-          <>Joined a team of <Keyword>5 engineers</Keyword> to rewrite LASSO from scratch in a <Keyword>separate repository</Keyword>, replacing a codebase tangled with <Keyword>cross-cutting concerns</Keyword></>,
-          <>Delivered a full platform rewrite in <Keyword>4 months</Keyword></>,
-          <>Built a <Keyword>REST API</Keyword> on the backend with <Keyword>Express.js</Keyword> and <Keyword>Node.js</Keyword></>,
-          <>Implemented frontend logic with <Keyword>Vue.js</Keyword> for the new LASSO platform</>
+          <>Served as the <Keyword>primary customer-facing representative</Keyword> of the lab, greeting and assisting a high volume of students daily with a focus on <Keyword>hospitality and satisfaction</Keyword></>,
+          <>Provided <Keyword>technical support</Keyword> to college students using digital media software including <Keyword>Photoshop</Keyword>, <Keyword>Illustrator</Keyword>, <Keyword>Blender</Keyword>, <Keyword>Unreal Engine</Keyword>, <Keyword>Unity</Keyword>, and more</>,
+          <>Resolved student concerns and equipment issues on the spot, maintaining a <Keyword>calm, professional demeanor</Keyword> under a busy, fast-paced environment</>,
+          <>Managed and maintained the lab's <Keyword>virtual reality</Keyword> equipment, <Keyword>3D printers</Keyword>, and <Keyword>A/V equipment</Keyword></>
         ]
       }]
-    }
+    },
+    {
+      title: 'Bank Teller',
+      company: 'First National Bank of Louisburg',
+      technologies: [],
+      projects: [{
+        logo: null,
+        start: 'June 2015',
+        end: 'July 2016',
+        victories: [
+          <>Followed <Keyword>legal procedures</Keyword> for the proper processing of <Keyword>checks</Keyword>, <Keyword>cash</Keyword>, and <Keyword>loans</Keyword>, and assisted in the management of <Keyword>customer accounts</Keyword></>,
+          <>Helped customers <Keyword>troubleshoot and resolve</Keyword> financial discrepancies such as searching for <Keyword>missing funds</Keyword> and settling balances</>,
+          <>Accurately <Keyword>handled over $50,000 in cash</Keyword> each day</>
+        ]
+      }]
+    },
   ]
 
   const filterJobs = (filter) => {
